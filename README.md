@@ -4,7 +4,7 @@ A comprehensive, single-page web application for tracking and visualizing your O
 
 ## Live Demo
 
-**(Link to your live GitHub Pages site will go here after you deploy it.)**
+(https://glukt.github.io/osrs-dash/)
 
 ## Features
 
