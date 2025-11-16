@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSRS Progress Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet CSS for interactive map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Chart.js for statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <h1>OSRS Progress Dashboard</h1>
+
+    <div id="controls">
+        <div>
+            <label for="username">Character Name:</label>
+            <input type="text" id="username" placeholder="Enter your RSN">
+        </div>
+        <div>
+            <label for="accountType">Account Type:</label>
+            <select id="accountType">
+                <option value="normal">Normal (GIM, Main)</option>
+                <option value="ironman">Ironman</option>
+                <option value="hardcore_ironman">Hardcore Ironman (HCIM)</option>
+                <option value="ultimate_ironman">Ultimate Ironman (UIM)</option>
+            </select>
+        </div>
+        <button id="loadButton">Load Character</button>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div id="tabs-container">
+        <div id="tabs">
+            <button class="tab-button active" data-tab="overview">Overview</button>
+            <button class="tab-button" data-tab="skills">Skills</button>
+            <button class="tab-button" data-tab="bosses">Bosses & Activities</button>
+            <button class="tab-button" data-tab="statistics">Statistics</button>
+            <button class="tab-button" data-tab="goals">Goals</button>
+            <button class="tab-button" data-tab="quests">Quests & Achievements</button>
+            <button class="tab-button" data-tab="map">Interactive Map</button>
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div id="tab-content">
+        <!-- Overview Tab -->
+        <div class="tab-pane active" id="overview-tab">
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <h3>Total Level</h3>
+                    <div class="stat-value" id="total-level">--</div>
+                </div>
+                <div class="overview-card">
+                    <h3>Total XP</h3>
+                    <div class="stat-value" id="total-xp">--</div>
+                </div>
+                <div class="overview-card">
+                    <h3>Combat Level</h3>
+                    <div class="stat-value" id="combat-level">--</div>
+                </div>
+                <div class="overview-card">
+                    <h3>99s Achieved</h3>
+                    <div class="stat-value" id="maxed-skills">--</div>
+                </div>
+            </div>
+            <div id="skills-progression-section">
+                <h2>Skill Progression</h2>
+                <div id="skills-progression-grid"></div>
+            </div>
+        </div>
+
+        <!-- Skills Tab -->
+        <div class="tab-pane" id="skills-tab">
+            <div class="skills-layout">
+                <div class="skills-left-panel">
+                    <div class="skills-header">
+                        <h2>Skills</h2>
+                        <div class="search-filter">
+                            <input type="text" id="skill-search" placeholder="Search skills...">
+                            <select id="skill-filter">
+                                <option value="all">All Skills</option>
+                                <option value="combat">Combat</option>
+                                <option value="gathering">Gathering</option>
+                                <option value="artisan">Artisan</option>
+                                <option value="support">Support</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="skills-grid-container"></div>
+                </div>
+                <div class="skills-right-panel">
+                    <div id="skill-details-panel"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bosses Tab -->
+        <div class="tab-pane" id="bosses-tab">
+            <div class="bosses-header">
+                <h2>Bosses & Activities</h2>
+                <div class="search-filter">
+                    <input type="text" id="boss-search" placeholder="Search bosses...">
+                    <select id="boss-filter">
+                        <option value="all">All Activities</option>
+                        <option value="boss">Bosses Only</option>
+                        <option value="minigame">Minigames</option>
+                        <option value="raid">Raids</option>
+                    </select>
+                </div>
+            </div>
+            <div id="activities-section">
+                <div id="activities-grid-container"></div>
+            </div>
+            <div id="boss-details-panel"></div>
+        </div>
+
+        <!-- Statistics Tab -->
+        <div class="tab-pane" id="statistics-tab">
+            <h2>Detailed Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>XP Distribution</h3>
+                    <canvas id="xp-chart"></canvas>
+                </div>
+                <div class="stat-card">
+                    <h3>Level Distribution</h3>
+                    <canvas id="level-chart"></canvas>
+                </div>
+                <div class="stat-card">
+                    <h3>Top Skills by XP</h3>
+                    <div id="top-skills-list"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Boss KC Leaderboard</h3>
+                    <div id="top-bosses-list"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>XP to Next Levels</h3>
+                    <div id="xp-to-level-list"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Account Summary</h3>
+                    <div id="account-summary"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quests & Achievements Tab -->
+        <div class="tab-pane" id="quests-tab">
+            <div class="quests-header">
+                <h2>Quests & Achievements</h2>
+                <div class="quests-filter">
+                    <select id="quest-filter">
+                        <option value="all">All</option>
+                        <option value="quests">Quests</option>
+                        <option value="achievement">Achievement Diaries</option>
+                        <option value="combat">Combat Achievements</option>
+                    </select>
+                </div>
+            </div>
+            <div id="quests-content">
+                <div class="quests-section">
+                    <h3>Quest Progress</h3>
+                    <div class="quest-info-box">
+                        <p><strong>Note:</strong> Quest completion data is not available through the OSRS Hiscores API.</p>
+                        <p>To track quest progress, you can:</p>
+                        <ul>
+                            <li>Use Runelite's quest list plugin (local data)</li>
+                            <li>Manually track completion in a notes file</li>
+                            <li>Use third-party tracking tools</li>
+                        </ul>
+                        <p style="margin-top: 15px; color: #f59e0b;">
+                            <strong>Future Enhancement:</strong> Integration with Runelite's local quest data file could be added if users provide their Runelite data directory.
+                        </p>
+                    </div>
+                </div>
+                <div class="achievements-section">
+                    <h3>Achievement Diaries</h3>
+                    <div id="achievement-diaries-list"></div>
+                </div>
+                <div class="combat-achievements-section">
+                    <h3>Combat Achievements</h3>
+                    <div id="combat-achievements-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goals Tab -->
+        <div class="tab-pane" id="goals-tab">
+            <h2>Active Goals</h2>
+            <div id="goal-creator">
+                <label for="goalType" id="goalTypeLabel">Goal Type:</label>
+                <select id="goalType">
+                    <option value="skill">Skill Level</option>
+                    <option value="boss">Boss KC</option>
+                    <option value="xp">XP Target</option>
+                </select>
+
+                <div id="goalNameSkillContainer">
+                    <label for="goalNameSkill">Skill:</label>
+                    <select id="goalNameSkill"></select>
+                </div>
+                <div id="goalNameBossContainer" class="hidden-dropdown">
+                    <label for="goalNameBoss">Boss:</label>
+                    <select id="goalNameBoss"></select>
+                </div>
+
+                <label for="goalTarget">Target:</label>
+                <input type="number" id="goalTarget" placeholder="e.g., 70">
+                <button id="addGoalButton">Add Goal</button>
+            </div>
+            <div id="goals-list"></div>
+        </div>
+
+        <!-- Interactive Map Tab -->
+        <div class="tab-pane" id="map-tab">
+            <div class="map-controls">
+                <h2>Interactive OSRS Map</h2>
+                <div class="map-filters">
+                    <label>
+                        <input type="checkbox" id="show-bosses" checked> Bosses
+                    </label>
+                    <label>
+                        <input type="checkbox" id="show-slayer-masters" checked> Slayer Masters
+                    </label>
+                    <label>
+                        <input type="checkbox" id="show-npcs"> NPCs
+                    </label>
+                    <label>
+                        <input type="checkbox" id="show-quests"> Quest Locations
+                    </label>
+                    <button id="reset-map-view">Reset View</button>
+                </div>
+            </div>
+            <div id="map-container">
+                <div id="osrs-map"></div>
+            </div>
+            <div id="map-legend"></div>
+        </div>
+    </div>
+
+    <div id="custom-context-menu">
+        <ul>
+            <li data-action="set-goal">Set Goal</li>
+            <li data-action="view-wiki">View Wiki Page</li>
+        </ul>
+    </div>
+
+    <!-- Leaflet JS for interactive map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
