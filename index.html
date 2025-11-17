@@ -165,16 +165,15 @@
                 <div class="quests-section">
                     <h3>Quest Progress</h3>
                     <div class="quest-info-box">
-                        <p><strong>Note:</strong> Quest completion data is not available through the OSRS Hiscores API.</p>
-                        <p>To track quest progress, you can:</p>
-                        <ul>
-                            <li>Use Runelite's quest list plugin (local data)</li>
-                            <li>Manually track completion in a notes file</li>
-                            <li>Use third-party tracking tools</li>
-                        </ul>
-                        <p style="margin-top: 15px; color: #f59e0b;">
-                            <strong>Future Enhancement:</strong> Integration with Runelite's local quest data file could be added if users provide their Runelite data directory.
-                        </p>
+                        <p>Enter your completed quests below, one per line. This list will be saved in your browser.</p>
+                        <textarea id="quest-list-input" rows="10" placeholder="Cook's Assistant
+Dragon Slayer I
+..."></textarea>
+                        <button id="save-quests-button">Save Quests</button>
+                    </div>
+                    <div id="quest-completion-display">
+                        <h4>Your Saved Quests:</h4>
+                        <ul id="quest-list-output"></ul>
                     </div>
                 </div>
                 <div class="achievements-section">

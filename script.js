@@ -74,17 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
      const bossIconUrls = {
         "Abyssal Sire": "https://oldschool.runescape.wiki/images/thumb/Abyssal_Sire.png/130px-Abyssal_Sire.png",
-        "Alchemical Hydra": "https://oldschool.runescape.wiki/images/thumb/Alchemical_hydra.png/130px-Alchemical_hydra.png",
+        "Alchemical Hydra": "https://oldschool.runescape.wiki/images/thumb/Alchemical_Hydra.png/130px-Alchemical_Hydra.png",
         "Artio": "https://oldschool.runescape.wiki/images/thumb/Artio.png/130px-Artio.png",
-        "Barrows Chests": "https://oldschool.runescape.wiki/images/thumb/Barrows.png/130px-Barrows.png",
+        "Barrows Chests": "https://oldschool.runescape.wiki/images/thumb/Barrows_Chests.png/130px-Barrows_Chests.png",
         "Bryophyta": "https://oldschool.runescape.wiki/images/thumb/Bryophyta.png/130px-Bryophyta.png",
         "Callisto": "https://oldschool.runescape.wiki/images/thumb/Callisto.png/130px-Callisto.png",
         "Calvar'ion": "https://oldschool.runescape.wiki/images/thumb/Calvar%27ion.png/130px-Calvar%27ion.png",
         "Cerberus": "https://oldschool.runescape.wiki/images/thumb/Cerberus.png/130px-Cerberus.png",
-        "Chambers of Xeric": "https://oldschool.runescape.wiki/images/thumb/Chambers_of_Xeric.png/130px-Chambers_of_Xeric.png",
-        "Chambers of Xeric: Challenge Mode": "https://oldschool.runescape.wiki/images/thumb/Chambers_of_Xeric_Challenge_Mode.png/130px-Chambers_of_Xeric_Challenge_Mode.png",
+        "Chambers of Xeric": "https://oldschool.runescape.wiki/images/thumb/Chambers_of_Xeric_logo.png/130px-Chambers_of_Xeric_logo.png",
+        "Chambers of Xeric: Challenge Mode": "https://oldschool.runescape.wiki/images/thumb/Chambers_of_Xeric_Challenge_Mode_logo.png/130px-Chambers_of_Xeric_Challenge_Mode_logo.png",
         "Chaos Elemental": "https://oldschool.runescape.wiki/images/thumb/Chaos_Elemental.png/130px-Chaos_Elemental.png",
-        "Chaos Fanatic": "https://oldschool.runescape.wiki/images/thumb/Chaos_fanatic.png/130px-Chaos_fanatic.png",
+        "Chaos Fanatic": "https://oldschool.runescape.wiki/images/thumb/Chaos_Fanatic.png/130px-Chaos_Fanatic.png",
         "Commander Zilyana": "https://oldschool.runescape.wiki/images/thumb/Commander_Zilyana.png/130px-Commander_Zilyana.png",
         "Corporeal Beast": "https://oldschool.runescape.wiki/images/thumb/Corporeal_Beast.png/130px-Corporeal_Beast.png",
         "Crazy Archaeologist": "https://oldschool.runescape.wiki/images/thumb/Crazy_archaeologist.png/130px-Crazy_archaeologist.png",
@@ -115,32 +115,24 @@ document.addEventListener("DOMContentLoaded", () => {
         "Sol Heredit": "https://oldschool.runescape.wiki/images/thumb/Sol_Heredit.png/130px-Sol_Heredit.png",
         "Spindel": "https://oldschool.runescape.wiki/images/thumb/Spindel.png/130px-Spindel.png",
         "Tempoross": "https://oldschool.runescape.wiki/images/thumb/Tempoross.png/130px-Tempoross.png",
-        "The Gauntlet": "https://oldschool.runescape.wiki/images/thumb/The_Gauntlet.png/130px-The_Gauntlet.png",
-        "The Corrupted Gauntlet": "https://oldschool.runescape.wiki/images/thumb/The_Corrupted_Gauntlet.png/130px-The_Corrupted_Gauntlet.png",
+        "The Gauntlet": "https://oldschool.runescape.wiki/images/thumb/The_Gauntlet_logo.png/130px-The_Gauntlet_logo.png",
+        "The Corrupted Gauntlet": "https://oldschool.runescape.wiki/images/thumb/The_Corrupted_Gauntlet_logo.png/130px-The_Corrupted_Gauntlet_logo.png",
         "The Leviathan": "https://oldschool.runescape.wiki/images/thumb/The_Leviathan.png/130px-The_Leviathan.png",
         "The Whisperer": "https://oldschool.runescape.wiki/images/thumb/The_Whisperer.png/130px-The_Whisperer.png",
-        "Theatre of Blood": "https://oldschool.runescape.wiki/images/thumb/Theatre_of_Blood.png/130px-Theatre_of_Blood.png",
-        "Theatre of Blood: Hard Mode": "https://oldschool.runescape.wiki/images/thumb/Theatre_of_Blood_Hard_Mode.png/130px-Theatre_of_Blood_Hard_Mode.png",
+        "Theatre of Blood": "https://oldschool.runescape.wiki/images/thumb/Theatre_of_Blood_logo.png/130px-Theatre_of_Blood_logo.png",
+        "Theatre of Blood: Hard Mode": "https://oldschool.runescape.wiki/images/thumb/Theatre_of_Blood_Hard_Mode_logo.png/130px-Theatre_of_Blood_Hard_Mode_logo.png",
         "Thermonuclear Smoke Devil": "https://oldschool.runescape.wiki/images/thumb/Thermonuclear_smoke_devil.png/130px-Thermonuclear_smoke_devil.png",
-        "Tombs of Amascut": "https://oldschool.runescape.wiki/images/thumb/Tombs_of_Amascut.png/130px-Tombs_of_Amascut.png",
-        "Tombs of Amascut: Expert Mode": "https://oldschool.runescape.wiki/images/thumb/Tombs_of_Amascut_Expert_Mode.png/130px-Tombs_of_Amascut_Expert_Mode.png",
+        "Tombs of Amascut": "https://oldschool.runescape.wiki/images/thumb/Tombs_of_Amascut_logo.png/130px-Tombs_of_Amascut_logo.png",
+        "Tombs of Amascut: Expert Mode": "https://oldschool.runescape.wiki/images/thumb/Tombs_of_Amascut_Expert_Mode_logo.png/130px-Tombs_of_Amascut_Expert_Mode_logo.png",
         "TzKal-Zuk": "https://oldschool.runescape.wiki/images/thumb/TzKal-Zuk.png/130px-TzKal-Zuk.png",
         "TzTok-Jad": "https://oldschool.runescape.wiki/images/thumb/TzTok-Jad.png/130px-TzTok-Jad.png",
         "Vardorvis": "https://oldschool.runescape.wiki/images/thumb/Vardorvis.png/130px-Vardorvis.png",
         "Venenatis": "https://oldschool.runescape.wiki/images/thumb/Venenatis.png/130px-Venenatis.png",
-        "Vet'ion": "https://oldschool.runescape.wiki/images/thumb/Vet%27ion_Reborn.png/130px-Vet%27ion_Reborn.png",
+        "Vet'ion": "https://oldschool.runescape.wiki/images/thumb/Vet%27ion.png/130px-Vet%27ion.png",
         "Vorkath": "https://oldschool.runescape.wiki/images/thumb/Vorkath.png/130px-Vorkath.png",
         "Wintertodt": "https://oldschool.runescape.wiki/images/thumb/Wintertodt.png/130px-Wintertodt.png",
         "Zalcano": "https://oldschool.runescape.wiki/images/thumb/Zalcano.png/130px-Zalcano.png",
-        "Zulrah": "https://oldschool.runescape.wiki/images/thumb/Zulrah.png/130px-Zulrah.png",
-        "Amoxliatl": "https://oldschool.runescape.wiki/images/thumb/Combat_achievements.png/130px-Combat_achievements.png",
-        "Araxxor": "https://oldschool.runescape.wiki/images/thumb/Combat_achievements.png/130px-Combat_achievements.png",
-        "Colosseum Glory": "https://oldschool.runescape.wiki/images/thumb/Colosseum.png/130px-Colosseum.png",
-        "Doom of Mokhaiotl": "https://oldschool.runescape.wiki/images/thumb/Miniquest.png/130px-Miniquest.png",
-        "Lunar Chests": "https://oldschool.runescape.wiki/images/thumb/Perilous_Moons.png/130px-Perilous_Moons.png",
-        "The Hueycoatl": "https://oldschool.runescape.wiki/images/thumb/Combat_achievements.png/130px-Combat_achievements.png",
-        "The Royal Titans": "https://oldschool.runescape.wiki/images/thumb/Combat_achievements.png/130px-Combat_achievements.png",
-        "Yama": "https://oldschool.runescape.wiki/images/thumb/Combat_achievements.png/130px-Combat_achievements.png"
+        "Zulrah": "https://oldschool.runescape.wiki/images/thumb/Zulrah.png/130px-Zulrah.png"
     };
 
     const bossActivityNames = Object.keys(bossIconUrls).sort();
@@ -155,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { type: "item", name: "Bronze Sword", level: 1, category: "Weapon" },
             { type: "item", name: "Iron Sword", level: 1, category: "Weapon" },
             { type: "item", name: "Steel Sword", level: 5, category: "Weapon" },
+            { type: "item", name: "Black Sword", level: 10, category: "Weapon" },
             { type: "item", name: "Mithril Sword", level: 20, category: "Weapon" },
             { type: "item", name: "Adamant Sword", level: 30, category: "Weapon" },
             { type: "item", name: "Rune Sword", level: 40, category: "Weapon" },
@@ -163,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { type: "item", name: "Bronze Scimitar", level: 1, category: "Weapon" },
             { type: "item", name: "Iron Scimitar", level: 1, category: "Weapon" },
             { type: "item", name: "Steel Scimitar", level: 5, category: "Weapon" },
+            { type: "item", name: "Black Scimitar", level: 10, category: "Weapon" },
             { type: "item", name: "Mithril Scimitar", level: 20, category: "Weapon" },
             { type: "item", name: "Adamant Scimitar", level: 30, category: "Weapon" },
             { type: "item", name: "Rune Scimitar", level: 40, category: "Weapon" },
@@ -171,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { type: "item", name: "Bronze Longsword", level: 1, category: "Weapon" },
             { type: "item", name: "Iron Longsword", level: 1, category: "Weapon" },
             { type: "item", name: "Steel Longsword", level: 5, category: "Weapon" },
+            { type: "item", name: "Black Longsword", level: 10, category: "Weapon" },
             { type: "item", name: "Mithril Longsword", level: 20, category: "Weapon" },
             { type: "item", name: "Adamant Longsword", level: 30, category: "Weapon" },
             { type: "item", name: "Rune Longsword", level: 40, category: "Weapon" },
@@ -179,42 +174,92 @@ document.addEventListener("DOMContentLoaded", () => {
             { type: "item", name: "Bronze Dagger", level: 1, category: "Weapon" },
             { type: "item", name: "Iron Dagger", level: 1, category: "Weapon" },
             { type: "item", name: "Steel Dagger", level: 5, category: "Weapon" },
+            { type: "item", name: "Black Dagger", level: 10, category: "Weapon" },
             { type: "item", name: "Mithril Dagger", level: 20, category: "Weapon" },
             { type: "item", name: "Adamant Dagger", level: 30, category: "Weapon" },
             { type: "item", name: "Rune Dagger", level: 40, category: "Weapon" },
             { type: "item", name: "Dragon Dagger", level: 60, category: "Weapon" },
             // Special Weapons
             { type: "item", name: "Abyssal Whip", level: 70, category: "Weapon" },
-            { type: "item", name: "Abyssal Tentacle", level: 75, category: "Weapon" },
-            { type: "item", name: "Saradomin Sword", level: 70, category: "Weapon" },
+            { type: "item", name: "Abyssal Tentacle", level: 70, category: "Weapon" },
+            { type: "item", "name": "Saradomin Sword", level: 70, category: "Weapon" },
             { type: "item", name: "Zamorakian Spear", level: 70, category: "Weapon" },
-            { type: "item", name: "Scythe of Vitur", level: 75, category: "Weapon" },
+            { type: "item", name: "Godswords", level: 75, category: "Weapon" },
+            { type: "item", name: "Scythe of Vitur", level: 80, category: "Weapon" },
+            { type: "item", name: "Ghrazi Rapier", level: 80, category: "Weapon" },
+            { type: "item", name: "Inquisitor's Mace", level: 80, category: "Weapon" },
             { type: "item", name: "Osmumten's Fang", level: 82, category: "Weapon" },
             // Quest Requirements
-            { type: "quest", name: "Monkey Madness", level: 60, category: "Quest Requirement" },
-            { type: "quest", name: "Dragon Slayer II", level: 60, category: "Quest Requirement" }
+            { type: "quest", name: "Vampyre Slayer", level: 20, category: "Quest Requirement" },
+            { type: "quest", name: "The Fremennik Trials", level: 40, category: "Quest Requirement" },
+            { type: "quest", name: "Monkey Madness I", level: 43, category: "Quest Requirement" },
+            { type: "quest", name: "Sins of the Father", level: 50, category: "Quest Requirement" },
+            { type: "quest", name: "Dragon Slayer II", level: 60, category: "Quest Requirement" },
+            { type: "quest", name: "The Forsaken Tower", level: 20, category: "Quest Requirement" }
         ],
         "Strength": [
+            // Weapons - Battleaxes
+            { type: "item", name: "Bronze Battleaxe", level: 1, category: "Weapon" },
+            { type: "item", name: "Iron Battleaxe", level: 1, category: "Weapon" },
+            { type: "item", name: "Steel Battleaxe", level: 5, category: "Weapon" },
+            { type: "item", name: "Black Battleaxe", level: 10, category: "Weapon" },
+            { type: "item", name: "Mithril Battleaxe", level: 20, category: "Weapon" },
+            { type: "item", name: "Adamant Battleaxe", level: 30, category: "Weapon" },
+            { type: "item", name: "Rune Battleaxe", level: 40, category: "Weapon" },
+            { type: "item", name: "Dragon Battleaxe", level: 60, category: "Weapon" },
+            // Weapons - Warhammers
             { type: "item", name: "Bronze Warhammer", level: 1, category: "Weapon" },
             { type: "item", name: "Iron Warhammer", level: 1, category: "Weapon" },
             { type: "item", name: "Steel Warhammer", level: 5, category: "Weapon" },
+            { type: "item", name: "Black Warhammer", level: 10, category: "Weapon" },
             { type: "item", name: "Mithril Warhammer", level: 20, category: "Weapon" },
             { type: "item", name: "Adamant Warhammer", level: 30, category: "Weapon" },
-            { type: "item", name: "Rune Warhammer", level: 40, category: "Weapon" },
+            { type: "item", name: "Rune Warhammer", level: 40, "category": "Weapon" },
             { type: "item", name: "Dragon Warhammer", level: 60, category: "Weapon" },
+            // Special Weapons
+            { type: "item", name: "Granite Maul", level: 50, category: "Weapon" },
+            { type: "item", name: "Dharok's Greataxe", level: 70, category: "Weapon" },
             { type: "item", name: "Abyssal Dagger", level: 70, category: "Weapon" },
-            { type: "activity", name: "Barbarian Assault", level: 50, category: "Minigame" }
+            // Activities & Guilds
+            { type: "activity", name: "Warriors' Guild", level: 65, category: "Guild Access" },
+            { type: "activity", name: "Tzhaar Fight Cave", level: 40, category: "Minigame" },
+            // Quest Requirements
+            { type: "quest", name: "Haunted Mine", level: 15, category: "Quest Requirement" },
+            { type: "quest", name: "Tai Bwo Wannai Trio", level: 30, category: "Quest Requirement" },
+            { type: "quest", name: "Legends' Quest", level: 50, category: "Quest Requirement" }
         ],
         "Defence": [
+            // Armor - Platebodies
             { type: "item", name: "Bronze Platebody", level: 1, category: "Armor" },
             { type: "item", name: "Iron Platebody", level: 1, category: "Armor" },
             { type: "item", name: "Steel Platebody", level: 5, category: "Armor" },
+            { type: "item", name: "Black Platebody", level: 10, category: "Armor" },
             { type: "item", name: "Mithril Platebody", level: 20, category: "Armor" },
             { type: "item", name: "Adamant Platebody", level: 30, category: "Armor" },
             { type: "item", name: "Rune Platebody", level: 40, category: "Armor" },
             { type: "item", name: "Dragon Platebody", level: 60, category: "Armor" },
-            { type: "item", name: "Barrows Armor", level: 70, category: "Armor" },
-            { type: "quest", name: "Dragon Slayer", level: 32, category: "Quest Requirement" }
+            // Armor - Shields
+            { type: "item", name: "Bronze Kiteshield", level: 1, category: "Shield" },
+            { type: "item", name: "Iron Kiteshield", level: 1, category: "Shield" },
+            { type: "item", name: "Steel Kiteshield", level: 5, category: "Shield" },
+            { type: "item", name: "Black Kiteshield", level: 10, category: "Shield" },
+            { type: "item", name: "Mithril Kiteshield", level: 20, category: "Shield" },
+            { type: "item", name: "Adamant Kiteshield", level: 30, category: "Shield" },
+            { type: "item", name: "Rune Kiteshield", level: 40, category: "Shield" },
+            { type: "item", name: "Dragon Kiteshield", level: 60, category: "Shield" },
+            // Special Armor
+            { type: "item", name: "Granite Shield", level: 50, category: "Shield" },
+            { type: "item", name: "Dragonfire Shield", level: 75, category: "Shield" },
+            { type: "item", name: "Barrows Armour", level: 70, category: "Armor" },
+            { type: "item", name: "Bandos Armour", level: 65, category: "Armor" },
+            { type: "item", name: "Justiciar Armour", level: 75, category: "Armor" },
+            // Activities & Guilds
+            { type: "activity", name: "Warriors' Guild", level: 65, category: "Guild Access" },
+            // Quest Requirements
+            { type: "quest", name: "Dragon Slayer I", level: 33, category: "Quest Requirement" },
+            { type: "quest", name: "The Fremennik Trials", level: 40, category: "Quest Requirement" },
+            { type: "quest", name: "Olaf's Quest", level: 40, category: "Quest Requirement" },
+            { type: "quest", name: "King's Ransom", level: 45, category: "Quest Requirement" }
         ],
         "Ranged": [
             { type: "item", name: "Oak Shortbow", level: 5, category: "Weapon" },
@@ -686,49 +731,53 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         "Abyssal Sire": {
             unlocks: [
-                { type: "item", name: "Abyssal Dagger", level: null, category: "Unique Drop" },
-                { type: "item", name: "Abyssal Bludgeon", level: null, category: "Unique Drop" }
+                { type: "slayer", name: "Abyssal Demon Task", level: 85, category: "Requirement" }
             ],
             uniqueDrops: [
-                { name: "Abyssal Dagger", rate: "1/32", rarity: "Rare" },
-                { name: "Abyssal Bludgeon", rate: "1/512 (per piece)", rarity: "Very Rare" },
-                { name: "Unsired", rate: "1/100", rarity: "Rare" }
+                { name: "Unsired", rate: "1/100", rarity: "Rare" },
+                { name: "Abyssal Whip", rate: "1/512 (from Unsired)", rarity: "Very Rare" },
+                { name: "Abyssal Dagger", rate: "1/512 (from Unsired)", rarity: "Very Rare" },
+                { name: "Abyssal Head", rate: "1/512 (from Unsired)", rarity: "Very Rare" },
+                { name: "Abyssal Bludgeon (piece)", rate: "1/512 (from Unsired)", rarity: "Very Rare" },
+                { name: "Abyssal Orphan", rate: "1/2,500", rarity: "Extremely Rare" },
+                { name: "Jar of Miasma", rate: "1/2,500", rarity: "Extremely Rare" }
             ]
         },
         "Cerberus": {
             unlocks: [
-                { type: "item", name: "Primordial Crystal", level: null, category: "Unique Drop" },
-                { type: "item", name: "Pegasian Crystal", level: null, category: "Unique Drop" },
-                { type: "item", name: "Eternal Crystal", level: null, category: "Unique Drop" }
+                { type: "slayer", name: "Hellhound Task", level: 91, category: "Requirement" }
             ],
             uniqueDrops: [
                 { name: "Primordial Crystal", rate: "1/512", rarity: "Very Rare" },
                 { name: "Pegasian Crystal", rate: "1/512", rarity: "Very Rare" },
                 { name: "Eternal Crystal", rate: "1/512", rarity: "Very Rare" },
-                { name: "Jar of Souls", rate: "1/2,000", rarity: "Extremely Rare" }
+                { name: "Smouldering Stone", rate: "1/512", rarity: "Very Rare" },
+                { name: "Jar of Souls", rate: "1/2,000", rarity: "Extremely Rare" },
+                { name: "Hellpuppy", rate: "1/3,000", rarity: "Extremely Rare" }
             ]
         },
         "Kalphite Queen": {
-            unlocks: [
-                { type: "item", name: "Dragon Chainbody", level: null, category: "Unique Drop" },
-                { type: "item", name: "KQ Head", level: null, category: "Unique Drop" }
-            ],
+            unlocks: [],
             uniqueDrops: [
                 { name: "Dragon Chainbody", rate: "1/128", rarity: "Rare" },
                 { name: "KQ Head", rate: "1/128", rarity: "Rare" },
-                { name: "Jar of Sand", rate: "1/3,000", rarity: "Extremely Rare" }
+                { name: "Dragon 2h Sword", rate: "1/256", rarity: "Rare" },
+                { name: "Dragon Pickaxe", rate: "1/400", rarity: "Very Rare" },
+                { name: "Jar of Sand", rate: "1/2,000", rarity: "Extremely Rare" },
+                { name: "Kalphite Princess", rate: "1/3,000", rarity: "Extremely Rare" }
             ]
         },
         "General Graardor": {
-            unlocks: [
-                { type: "item", name: "Bandos Chestplate", level: null, category: "Unique Drop" },
-                { type: "item", name: "Bandos Tassets", level: null, category: "Unique Drop" }
-            ],
+            unlocks: [],
             uniqueDrops: [
                 { name: "Bandos Chestplate", rate: "1/381", rarity: "Very Rare" },
                 { name: "Bandos Tassets", rate: "1/381", rarity: "Very Rare" },
                 { name: "Bandos Boots", rate: "1/381", rarity: "Very Rare" },
-                { name: "Bandos Hilt", rate: "1/508", rarity: "Very Rare" }
+                { name: "Bandos Hilt", rate: "1/508", rarity: "Very Rare" },
+                { name: "Godsword Shard 1", rate: "1/762", rarity: "Rare" },
+                { name: "Godsword Shard 2", rate: "1/762", rarity: "Rare" },
+                { name: "Godsword Shard 3", rate: "1/762", rarity: "Rare" },
+                { name: "Pet General Graardor", rate: "1/5,000", rarity: "Extremely Rare" }
             ]
         },
         "Commander Zilyana": {
@@ -1289,53 +1338,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const jagexApiUrl = `https://secure.runescape.com/m=${hiscoreBoard}/index_lite.json?player=${formattedUsername}`;
         
-        // Try multiple proxy options for better reliability
-        const proxyOptions = [
-            `https://api.allorigins.win/get?url=${encodeURIComponent(jagexApiUrl)}`,
-            `https://corsproxy.io/?${encodeURIComponent(jagexApiUrl)}`,
-            `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(jagexApiUrl)}`
-        ];
-        
-        // Function to try fetching with fallback proxies
-        async function fetchWithFallback(urls) {
-            for (let i = 0; i < urls.length; i++) {
-                try {
-                    const response = await fetch(urls[i]);
-                    if (response.ok) {
-                        let text = await response.text();
-                        // Handle different proxy response formats
-                        if (urls[i].includes('allorigins.win')) {
-                            try {
-                                const json = JSON.parse(text);
-                                text = json.contents || text;
-                            } catch (e) {
-                                // Already text format
-                            }
-                        }
-                        return text;
-                    }
-                } catch (e) {
-                    console.warn(`Proxy ${i + 1} failed, trying next...`, e);
-                    if (i === urls.length - 1) throw e;
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(jagexApiUrl)}`;
+        fetch(proxyUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
                 }
-            }
-        }
-
-        fetchWithFallback(proxyOptions)
-            .then(text => {
-                let data;
-                try { 
-                    data = JSON.parse(text);
-                }
-                catch (e) {
-                    if (text.toLowerCase().includes('page not found') || text.toLowerCase().includes('no player')) { 
-                        throw new Error(`Error: Player "${username}" not found on ${accountType} hiscores.`); 
-                    }
-                    else { 
-                        console.error("Raw Response Text:", text); 
-                        throw new Error(`Error: Failed to parse API response. Proxy/API issue?`); 
-                    }
-                }
+                return response.json();
+            })
+            .then(data => {
 
                 if (!data || (Object.keys(data).length === 0 && data.constructor === Object)) { throw new Error(`Error: Received empty data for "${username}" on ${accountType} hiscores.`); }
                 if (data.error) { throw new Error(`Error from OSRS Hiscores: ${data.error}`); }
@@ -1525,7 +1536,44 @@ document.addEventListener("DOMContentLoaded", () => {
                 activitiesGridContainer.innerHTML = `<p style="color: red; grid-column: 1 / -1;">${error.message}</p>`;
                 renderGoals();
             });
-    }); // --- End of loadButton listener ---
+    // --- End of loadButton listener ---
+
+    // ===================================
+    // --- MANUAL QUEST TRACKING ---
+    // ===================================
+    const questListInput = document.getElementById('quest-list-input');
+    const saveQuestsButton = document.getElementById('save-quests-button');
+    const questListOutput = document.getElementById('quest-list-output');
+
+    function loadQuests() {
+        const savedQuests = localStorage.getItem('osrsQuests');
+        if (savedQuests) {
+            questListInput.value = savedQuests;
+            updateQuestOutput(savedQuests);
+        }
+    }
+
+    function saveQuests() {
+        const quests = questListInput.value;
+        localStorage.setItem('osrsQuests', quests);
+        updateQuestOutput(quests);
+        alert('Quest list saved!');
+    }
+
+    function updateQuestOutput(quests) {
+        questListOutput.innerHTML = '';
+        const questArray = quests.split('\n').filter(q => q.trim() !== '');
+        questArray.forEach(quest => {
+            const li = document.createElement('li');
+            li.textContent = quest;
+            questListOutput.appendChild(li);
+        });
+    }
+
+    saveQuestsButton.addEventListener('click', saveQuests);
+
+    loadQuests();
+});
 
     // ===================================
     // --- TAB NAVIGATION ---
@@ -1665,37 +1713,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const northEast = osrsToLeaflet(6400, 6400);
         osrsMap.setMaxBounds([southWest, northEast]);
         
-        // Add visual grid/background for the map
-        const mapBounds = L.latLngBounds(southWest, northEast);
-        
-        // Create a visual grid to help see the map structure
-        // Draw grid lines every 800 units
-        for (let x = 0; x <= 6400; x += 800) {
-            L.polyline([[0, x], [6400, x]], {
-                color: '#444444', 
-                weight: 1, 
-                opacity: 0.4,
-                interactive: false
-            }).addTo(osrsMap);
-        }
-        for (let y = 0; y <= 6400; y += 800) {
-            L.polyline([[y, 0], [y, 6400]], {
-                color: '#444444', 
-                weight: 1, 
-                opacity: 0.4,
-                interactive: false
-            }).addTo(osrsMap);
-        }
-        
-        // Add OSRS world map background
-        // Using a colored background with grid since external images have CORS issues
-        // For production, host your own OSRS map image
-        L.rectangle([southWest, northEast], {
-            color: '#2a2a2a',
-            fillColor: '#1a1a1a',
-            fillOpacity: 0.95,
-            weight: 2,
-            interactive: false
+        // Add OSRS world map tile layer
+        L.tileLayer('https://maps.runescape.wiki/osrs/2020-02-10/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; Jagex',
+            noWrap: true,
+            bounds: mapBounds
         }).addTo(osrsMap);
         
         // Add region labels for better orientation
