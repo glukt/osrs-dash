@@ -1,14 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* --- THEME VARIABLES --- */
+:root {
+    --bg-color: #202122;
+    --text-color: #c7c7c7;
+    --header-bg: #2b2c2d;
+    --header-border: #323334;
+    --card-bg: #2b2c2d;
+    --card-border: #323334;
+    --tab-bg: #2b2c2d;
+    --tab-border: #323334;
+    --tab-active-bg: #3b82f6;
+    --tab-active-color: #fff;
+    --input-bg: #202122;
+    --input-border: #323334;
+    --button-bg: #3b82f6;
+    --button-hover-bg: #2563eb;
+    --stat-value-color: #f59e0b;
+    --link-color: #6b9bff;
+}
+
+.dark-mode {
+    --bg-color: #202122;
+    --text-color: #c7c7c7;
+    --header-bg: #2b2c2d;
+    --header-border: #323334;
+    --card-bg: #2b2c2d;
+    --card-border: #323334;
+    --tab-bg: #2b2c2d;
+    --tab-border: #323334;
+    --tab-active-bg: #3b82f6;
+    --tab-active-color: #fff;
+    --input-bg: #202122;
+    --input-border: #323334;
+    --button-bg: #3b82f6;
+    --button-hover-bg: #2563eb;
+    --stat-value-color: #f59e0b;
+    --link-color: #6b9bff;
+}
+
+.light-mode {
+    --bg-color: #fdfdfd;
+    --text-color: #252525;
+    --header-bg: #eaecf0;
+    --header-border: #a2a9b1;
+    --card-bg: #eaecf0;
+    --card-border: #a2a9b1;
+    --tab-bg: #eaecf0;
+    --tab-border: #a2a9b1;
+    --tab-active-bg: #3b82f6;
+    --tab-active-color: #fff;
+    --input-bg: #fdfdfd;
+    --input-border: #a2a9b1;
+    --button-bg: #3b82f6;
+    --button-hover-bg: #2563eb;
+    --stat-value-color: #d98200;
+    --link-color: #0645ad;
+}
+
+
 /* --- Base & Body --- */
 body {
-    background-color: #121212;
-    color: #e0e0e0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--header-border);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+#theme-switcher {
+    background-color: var(--button-bg);
+    color: var(--tab-active-color);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 0.95em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#theme-switcher:hover {
+    background-color: var(--button-hover-bg);
 }
 
 h1, #controls, #goals-section {
@@ -21,16 +112,16 @@ h1, #controls, #goals-section {
 
 /* --- Headings --- */
 h1 {
-    color: #ffffff;
+    color: var(--text-color);
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 30px;
-    border-bottom: 1px solid #333333;
+    border-bottom: 1px solid var(--header-border);
     padding-bottom: 10px;
 }
 #goals-section h2 { /* Heading for Goals section */
-    color: #ffffff;
-    border-bottom: 1px solid #333333;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--header-border);
     padding-bottom: 8px;
     margin-top: 40px;
     margin-bottom: 20px;
@@ -39,12 +130,12 @@ h1 {
 
 /* --- Controls Section (#controls) --- */
 #controls {
-    background-color: #1e1e1e; padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #333333; display: flex; flex-wrap: wrap; gap: 15px; align-items: center;
+    background-color: var(--card-bg); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid var(--card-border); display: flex; flex-wrap: wrap; gap: 15px; align-items: center;
 }
 #controls div { display: flex; align-items: center; gap: 8px; flex-grow: 1; min-width: 200px; }
-#controls label { font-weight: bold; color: #bbbbbb; flex-shrink: 0; }
-#controls input[type="text"], #controls input[type="number"], #controls select { background-color: #2c2c2c; color: #e0e0e0; border: 1px solid #444444; border-radius: 5px; padding: 8px 12px; font-size: 0.9em; flex-grow: 1; min-width: 100px; box-sizing: border-box; }
-#controls input:focus, #controls select:focus { outline: none; border-color: #4dabf7; box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.3); }
+#controls label { font-weight: bold; color: var(--text-color); flex-shrink: 0; }
+#controls input[type="text"], #controls input[type="number"], #controls select { background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--input-border); border-radius: 5px; padding: 8px 12px; font-size: 0.9em; flex-grow: 1; min-width: 100px; box-sizing: border-box; }
+#controls input:focus, #controls select:focus { outline: none; border-color: var(--link-color); box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.3); }
 #controls button { flex-grow: 0; margin-left: auto; }
 
 /* --- RuneLite Panel Container --- */
@@ -53,8 +144,8 @@ h1 {
     max-width: none;
     margin: 0;
     margin-bottom: 30px;
-    background-color: #1e1e1e;
-    border: 1px solid #383838;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -63,18 +154,18 @@ h1 {
 #skills-section, #activities-section {
     margin: 0;
     padding: 0;
-    border-bottom: 1px solid #383838;
+    border-bottom: 1px solid var(--card-border);
 }
 
 /* Headings within the panel */
 #skills-section h2, #activities-section h2 {
-    color: #ccc;
+    color: var(--text-color);
     margin: 0;
     padding: 6px 10px;
     font-size: 1em;
     text-align: center;
-    background-color: #2a2a2a;
-    border-bottom: 1px solid #383838;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--card-border);
 }
 
 /* Grid Containers inside Panel */
@@ -83,13 +174,13 @@ h1 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1px;
-    background-color: #383838; /* Grid line color */
+    background-color: var(--card-border); /* Grid line color */
     padding: 1px; /* Acts as outer border */
 }
 
 /* Individual Grid Items */
 .grid-item {
-    background-color: #1e1e1e;
+    background-color: var(--card-bg);
     padding: 5px; /* Adjusted padding */
     display: flex;
     flex-direction: column; /* Stack vertically for skills */
@@ -125,7 +216,7 @@ h1 {
 }
 
 .grid-item-value {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     font-weight: bold;
     font-size: 0.9em;
     white-space: nowrap;
@@ -148,7 +239,7 @@ h1 {
     grid-row: 1 / 2;
     justify-content: center;
 }
-.total-xp-item .grid-item-value { font-size: 0.85em; color: #cccccc; margin-left: 5px; }
+.total-xp-item .grid-item-value { font-size: 0.85em; color: var(--text-color); margin-left: 5px; }
 .total-xp-item .grid-item-icon { opacity: 0.6; }
 
 
@@ -168,8 +259,8 @@ h1 {
     width: 0%;
     transition: width 0.3s ease-in-out;
 }
-.grid-item.maxed .skill-progress-fill-grid { background-color: #f59e0b; }
-.grid-item.maxed .grid-item-value { color: #f59e0b; }
+.grid-item.maxed .skill-progress-fill-grid { background-color: var(--stat-value-color); }
+.grid-item.maxed .grid-item-value { color: var(--stat-value-color); }
 
 
 /* --- Goal Creator (#goal-creator) --- */
@@ -179,11 +270,11 @@ h1 {
      margin: 0 auto;
 }
 #goal-creator {
-    background-color: #1e1e1e; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333333; display: flex; flex-wrap: wrap; gap: 10px 15px; align-items: center;
+    background-color: var(--card-bg); padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--card-border); display: flex; flex-wrap: wrap; gap: 10px 15px; align-items: center;
 }
-#goal-creator label { font-weight: bold; color: #bbbbbb; margin-right: 5px; }
-#goal-creator input[type="number"], #goal-creator select { background-color: #2c2c2c; color: #e0e0e0; border: 1px solid #444444; border-radius: 5px; padding: 8px 12px; font-size: 0.9em; box-sizing: border-box; }
-#goal-creator input:focus, #goal-creator select:focus { outline: none; border-color: #4dabf7; box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.3); }
+#goal-creator label { font-weight: bold; color: var(--text-color); margin-right: 5px; }
+#goal-creator input[type="number"], #goal-creator select { background-color: var(--input-bg); color: var(--text-color); border: 1px solid var(--input-border); border-radius: 5px; padding: 8px 12px; font-size: 0.9em; box-sizing: border-box; }
+#goal-creator input:focus, #goal-creator select:focus { outline: none; border-color: var(--link-color); box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.3); }
 #goal-creator input[type="number"] { width: 80px; }
 #goal-creator select { flex-grow: 1; min-width: 120px; }
 #goal-creator button { margin-left: auto; }
@@ -192,25 +283,25 @@ h1 {
 
 /* --- Goal List (#goals-list) --- */
 #goals-list .goal {
-    background-color: #2a2a2a; padding: 12px 15px; border-radius: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #383838; transition: background-color 0.2s ease;
+    background-color: var(--header-bg); padding: 12px 15px; border-radius: 5px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--card-border); transition: background-color 0.2s ease;
 }
 #goals-list .goal:hover { background-color: #333333; }
-#goals-list .goal span { color: #cccccc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-grow: 1; margin-right: 15px; }
-#goals-list .goal span strong { color: #ffffff; }
+#goals-list .goal span { color: var(--text-color); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-grow: 1; margin-right: 15px; }
+#goals-list .goal span strong { color: var(--text-color); }
 #goals-list .goal button { background-color: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8em; transition: background-color 0.2s ease; flex-shrink: 0; }
 #goals-list .goal button:hover { background-color: #dc2626; }
 #goals-list p { color: #888888; text-align: center; margin-top: 10px; }
 .progress-bar-container { width: 100%; background-color: #444444; border-radius: 4px; height: 10px; overflow: hidden; margin-top: 5px; }
-.progress-bar-fill { height: 100%; background-color: #3b82f6; border-radius: 4px; width: 0%; transition: width 0.3s ease-in-out; }
+.progress-bar-fill { height: 100%; background-color: var(--button-bg); border-radius: 4px; width: 0%; transition: width 0.3s ease-in-out; }
 .goal.completed .progress-bar-fill { background-color: #22c55e; }
 .goal.completed span { color: #a3e635; }
 .goal.completed span strong { color: #bef264; }
 
 /* --- General Button Styling --- */
 button {
-    background-color: #3b82f6; color: white; border: none; border-radius: 5px; padding: 10px 15px; font-size: 0.95em; font-weight: bold; cursor: pointer; transition: background-color 0.2s ease;
+    background-color: var(--button-bg); color: white; border: none; border-radius: 5px; padding: 10px 15px; font-size: 0.95em; font-weight: bold; cursor: pointer; transition: background-color 0.2s ease;
 }
-button:hover { background-color: #2563eb; }
+button:hover { background-color: var(--button-hover-bg); }
 button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 /* --- Error Message Styling --- */
@@ -228,51 +319,13 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 /* --- Custom Context Menu --- */
 #custom-context-menu {
-    display: none; position: absolute; z-index: 1000; background-color: #2c2c2c; border: 1px solid #555555; border-radius: 5px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); min-width: 150px; padding: 5px 0;
+    display: none; position: absolute; z-index: 1000; background-color: var(--card-bg); border: 1px solid #555555; border-radius: 5px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); min-width: 150px; padding: 5px 0;
 }
 #custom-context-menu ul { list-style: none; padding: 0; margin: 0; }
-#custom-context-menu li { padding: 8px 15px; color: #e0e0e0; cursor: pointer; font-size: 0.9em; white-space: nowrap; }
-#custom-context-menu li:hover { background-color: #3b82f6; color: #ffffff; }
+#custom-context-menu li { padding: 8px 15px; color: var(--text-color); cursor: pointer; font-size: 0.9em; white-space: nowrap; }
+#custom-context-menu li:hover { background-color: var(--button-bg); color: #ffffff; }
 
 
-/* --- Media Queries (Simplified for Desktop Focus) --- */
-/* Basic adjustment if panel gets too small */
-@media (max-width: 650px) {
-    #runelite-panel-container {
-        width: 100%; /* Take full width */
-        margin-left: 0;
-        max-width: none; /* Remove max width */
-    }
-    #skills-grid-container, #activities-grid-container {
-        grid-template-columns: repeat(3, 1fr); /* Keep 3 columns */
-    }
-    #goals-section {
-        /* Ensure goals section doesn't overlap or get pushed weirdly */
-        margin-top: 30px;
-    }
-}
-
-/* Further adjustments for very small screens if needed */
-@media (max-width: 400px) {
-     #skills-grid-container, #activities-grid-container {
-        grid-template-columns: repeat(2, 1fr); /* Go to 2 columns */
-         gap: 2px;
-         padding: 2px;
-    }
-    .grid-item { padding: 3px 4px; min-height: 26px;}
-    .grid-item-icon { width: 16px; height: 16px; margin-right: 3px;}
-    .grid-item-value { font-size: 0.8em; }
-    .total-xp-item { grid-column: 1 / -1; } /* Stack Total XP */
-    .overall-item { grid-column: 1 / -1; } /* Stack Overall */
-
-     #controls, #goal-creator { flex-direction: column; align-items: stretch; }
-     #controls div, #goalNameSkillContainer, #goalNameBossContainer { min-width: 100%; }
-     #controls button, #goal-creator button { width: 100%; margin-top: 10px; margin-left: 0;}
-     #goals-list .goal { flex-direction: column; align-items: stretch; padding: 8px;}
-     #goals-list .goal div { margin-bottom: 8px;}
-     #goals-list .goal button { width: 100%; margin-top: 5px; margin-left: 0;}
-     #goals-list .goal span { white-space: normal; }
-}
 
 /* --- Tab Navigation --- */
 #tabs-container {
@@ -286,16 +339,16 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    background-color: #1e1e1e;
+    background-color: var(--card-bg);
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #333333;
+    border: 1px solid var(--card-border);
 }
 
 .tab-button {
-    background-color: #2c2c2c;
-    color: #e0e0e0;
-    border: 1px solid #444444;
+    background-color: var(--tab-bg);
+    color: var(--text-color);
+    border: 1px solid var(--tab-border);
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -312,9 +365,9 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .tab-button.active {
-    background-color: #3b82f6;
-    color: #ffffff;
-    border-color: #2563eb;
+    background-color: var(--tab-active-bg);
+    color: var(--tab-active-color);
+    border-color: var(--button-hover-bg);
 }
 
 /* --- Tab Content --- */
@@ -328,9 +381,9 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 .tab-pane {
     display: none;
     padding: 20px;
-    background-color: #1e1e1e;
+    background-color: var(--card-bg);
     border-radius: 8px;
-    border: 1px solid #333333;
+    border: 1px solid var(--card-border);
     min-height: 400px;
 }
 
@@ -339,8 +392,8 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .tab-pane h2 {
-    color: #ffffff;
-    border-bottom: 1px solid #333333;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--header-border);
     padding-bottom: 10px;
     margin-bottom: 20px;
     font-size: 1.8em;
@@ -355,15 +408,15 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .overview-card {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
     text-align: center;
 }
 
 .overview-card h3 {
-    color: #bbbbbb;
+    color: var(--text-color);
     font-size: 0.9em;
     margin: 0 0 10px 0;
     text-transform: uppercase;
@@ -371,7 +424,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .stat-value {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     font-size: 2.5em;
     font-weight: bold;
 }
@@ -387,10 +440,10 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .skill-progression-tile {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     padding: 15px;
     border-radius: 8px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -410,43 +463,43 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .skill-progression-tile-name {
-    color: #ffffff;
+    color: var(--text-color);
     font-weight: bold;
     font-size: 0.9em;
 }
 
 .skill-progression-tile-level {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     font-size: 0.85em;
 }
 
 .skill-progression-tile-bar-container {
     width: 100%;
     height: 6px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 3px;
     overflow: hidden;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
 }
 
 .skill-progression-tile-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    background: linear-gradient(90deg, var(--button-bg), var(--button-hover-bg));
     border-radius: 3px;
     transition: width 0.3s ease;
 }
 
 .skill-progression-tile-xp {
-    color: #bbbbbb;
+    color: var(--text-color);
     font-size: 0.75em;
     text-align: center;
 }
 
 .skill-progression-item {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     padding: 15px;
     border-radius: 8px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
 }
 
 .skill-progression-header {
@@ -470,18 +523,18 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .skill-progression-name {
-    color: #ffffff;
+    color: var(--text-color);
     font-weight: bold;
     font-size: 1em;
 }
 
 .skill-progression-level {
-    color: #bbbbbb;
+    color: var(--text-color);
     font-size: 0.85em;
 }
 
 .skill-progression-xp {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     font-weight: bold;
     font-size: 0.9em;
 }
@@ -490,15 +543,15 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
     position: relative;
     width: 100%;
     height: 24px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
 }
 
 .skill-progression-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    background: linear-gradient(90deg, var(--button-bg), var(--button-hover-bg));
     border-radius: 12px;
     transition: width 0.3s ease;
     position: relative;
@@ -509,7 +562,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #ffffff;
+    color: var(--tab-active-color);
     font-size: 0.75em;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
@@ -542,7 +595,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 /* Boss Grid Item with Name */
 .grid-item-name {
-    color: #e0e0e0;
+    color: var(--text-color);
     font-size: 0.85em;
     flex-grow: 1;
     margin: 0 8px;
@@ -562,7 +615,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .clickable-boss:hover {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     transform: scale(1.02);
     box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
@@ -580,7 +633,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .drops-section h4 {
-    color: #ffffff;
+    color: var(--text-color);
     margin-bottom: 15px;
     font-size: 1.2em;
 }
@@ -588,27 +641,27 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 .drops-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 8px;
     overflow: hidden;
 }
 
 .drops-table thead {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
 }
 
 .drops-table th {
     padding: 12px;
     text-align: left;
-    color: #ffffff;
+    color: var(--text-color);
     font-weight: bold;
-    border-bottom: 2px solid #383838;
+    border-bottom: 2px solid var(--card-border);
 }
 
 .drops-table td {
     padding: 10px 12px;
-    color: #e0e0e0;
-    border-bottom: 1px solid #383838;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--card-border);
     vertical-align: middle;
 }
 
@@ -636,7 +689,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .drops-table tbody tr:hover {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
 }
 
 .drops-table tbody tr:last-child td {
@@ -644,7 +697,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .rarity-rare {
-    color: #3b82f6;
+    color: var(--link-color);
     font-weight: bold;
 }
 
@@ -667,9 +720,9 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .quests-filter select {
-    background-color: #2c2c2c;
-    color: #e0e0e0;
-    border: 1px solid #444444;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
     border-radius: 5px;
     padding: 8px 12px;
     font-size: 0.9em;
@@ -680,7 +733,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .quests-section h3, .achievements-section h3, .combat-achievements-section h3 {
-    color: #ffffff;
+    color: var(--text-color);
     margin-bottom: 15px;
 }
 
@@ -691,14 +744,14 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .achievement-diary-card, .combat-achievement-card {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
 }
 
 .achievement-diary-card h4, .combat-achievement-card h4 {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     margin: 0 0 15px 0;
     font-size: 1.1em;
 }
@@ -715,12 +768,12 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
     justify-content: space-between;
     align-items: center;
     padding: 8px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 5px;
 }
 
 .tier-name {
-    color: #e0e0e0;
+    color: var(--text-color);
     font-weight: bold;
 }
 
@@ -730,7 +783,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .diary-description {
-    color: #bbbbbb;
+    color: var(--text-color);
     font-size: 0.9em;
     margin: 0;
 }
@@ -738,18 +791,18 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 .achievement-status {
     display: inline-block;
     padding: 5px 10px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 5px;
     color: #888;
     font-size: 0.9em;
 }
 
 .quest-info-box {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #383838;
-    color: #e0e0e0;
+    border: 1px solid var(--card-border);
+    color: var(--text-color);
 }
 
 .quest-info-box p {
@@ -758,7 +811,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 .quest-info-box ul {
     margin: 10px 0 10px 20px;
-    color: #bbbbbb;
+    color: var(--text-color);
 }
 
 .quest-info-box li {
@@ -775,18 +828,18 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 .search-filter input[type="text"] {
     flex: 1;
-    background-color: #2c2c2c;
-    color: #e0e0e0;
-    border: 1px solid #444444;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
     border-radius: 5px;
     padding: 8px 12px;
     font-size: 0.9em;
 }
 
 .search-filter select {
-    background-color: #2c2c2c;
-    color: #e0e0e0;
-    border: 1px solid #444444;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
     border-radius: 5px;
     padding: 8px 12px;
     font-size: 0.9em;
@@ -809,14 +862,14 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .stat-card {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
 }
 
 .stat-card h3 {
-    color: #ffffff;
+    color: var(--text-color);
     margin: 0 0 15px 0;
     font-size: 1.2em;
 }
@@ -834,9 +887,9 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 #top-skills-list li, #top-bosses-list li, #xp-to-level-list li {
     padding: 10px;
     margin-bottom: 8px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 5px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -850,13 +903,13 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 #account-summary div {
     padding: 10px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 5px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
 }
 
 #account-summary strong {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     display: block;
     margin-bottom: 5px;
 }
@@ -868,13 +921,13 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
     margin: 20px 0;
     border-radius: 8px;
     overflow: hidden;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
 }
 
 #osrs-map {
     width: 100%;
     height: 100%;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
 }
 
 .map-controls {
@@ -893,7 +946,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #e0e0e0;
+    color: var(--text-color);
     cursor: pointer;
 }
 
@@ -906,9 +959,9 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 #map-legend {
     margin-top: 15px;
     padding: 15px;
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     border-radius: 8px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -918,7 +971,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #e0e0e0;
+    color: var(--text-color);
 }
 
 .legend-color {
@@ -930,17 +983,17 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 /* Leaflet Map Customization */
 .leaflet-container {
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
 }
 
 .leaflet-popup-content-wrapper {
-    background-color: #2a2a2a;
-    color: #e0e0e0;
+    background-color: var(--header-bg);
+    color: var(--text-color);
     border-radius: 8px;
 }
 
 .leaflet-popup-tip {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
 }
 
 .leaflet-popup-content {
@@ -951,9 +1004,9 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 #skill-details-panel, #boss-details-panel {
     margin-top: 20px;
     padding: 20px;
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     border-radius: 8px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
     display: none;
 }
 
@@ -967,11 +1020,11 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #383838;
+    border-bottom: 1px solid var(--card-border);
 }
 
 .skill-details-header h3 {
-    color: #ffffff;
+    color: var(--text-color);
     margin: 0;
     font-size: 1.5em;
 }
@@ -1005,13 +1058,13 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 .stat-item {
     padding: 15px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 5px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
 }
 
 .stat-item strong {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     display: block;
     margin-bottom: 5px;
 }
@@ -1021,7 +1074,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .unlocks-section h4 {
-    color: #ffffff;
+    color: var(--text-color);
     margin-bottom: 15px;
     font-size: 1.2em;
 }
@@ -1031,7 +1084,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .unlock-category h5 {
-    color: #bbbbbb;
+    color: var(--text-color);
     margin: 0 0 10px 0;
     font-size: 1em;
     text-transform: uppercase;
@@ -1047,9 +1100,9 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 .unlock-item {
     padding: 12px 15px;
     margin-bottom: 8px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 5px;
-    border: 1px solid #383838;
+    border: 1px solid var(--card-border);
     display: flex;
     align-items: center;
     gap: 15px;
@@ -1058,8 +1111,8 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .unlock-item:hover {
-    background-color: #2a2a2a;
-    border-color: #4dabf7;
+    background-color: var(--header-bg);
+    border-color: var(--link-color);
 }
 
 .unlock-item.unlocked {
@@ -1072,14 +1125,14 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .unlock-level {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     font-weight: bold;
     min-width: 60px;
     font-size: 0.9em;
 }
 
 .unlock-name {
-    color: #e0e0e0;
+    color: var(--text-color);
     flex-grow: 1;
 }
 
@@ -1101,7 +1154,7 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 }
 
 .clickable-skill:hover {
-    background-color: #2a2a2a;
+    background-color: var(--header-bg);
     transform: scale(1.05);
     box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
@@ -1114,12 +1167,12 @@ button:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
 
 .detail-item {
     padding: 10px;
-    background-color: #1e1e1e;
+    background-color: var(--bg-color);
     border-radius: 5px;
 }
 
 .detail-item strong {
-    color: #f59e0b;
+    color: var(--stat-value-color);
     display: block;
     margin-bottom: 5px;
 }

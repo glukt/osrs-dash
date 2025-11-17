@@ -44,95 +44,95 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Skill & Boss Definitions / Icons ---
     // ===================================
     const skillIconUrls = {
-        "Attack": "https://oldschool.runescape.wiki/images/Attack_icon.png",
-        "Defence": "https://oldschool.runescape.wiki/images/Defence_icon.png",
-        "Strength": "https://oldschool.runescape.wiki/images/Strength_icon.png",
-        "Hitpoints": "https://oldschool.runescape.wiki/images/Hitpoints_icon.png",
-        "Ranged": "https://oldschool.runescape.wiki/images/Ranged_icon.png",
-        "Prayer": "https://oldschool.runescape.wiki/images/Prayer_icon.png",
-        "Magic": "https://oldschool.runescape.wiki/images/Magic_icon.png",
-        "Cooking": "https://oldschool.runescape.wiki/images/Cooking_icon.png",
-        "Woodcutting": "https://oldschool.runescape.wiki/images/Woodcutting_icon.png",
-        "Fletching": "https://oldschool.runescape.wiki/images/Fletching_icon.png",
-        "Fishing": "https://oldschool.runescape.wiki/images/Fishing_icon.png",
-        "Firemaking": "https://oldschool.runescape.wiki/images/Firemaking_icon.png",
-        "Crafting": "https://oldschool.runescape.wiki/images/Crafting_icon.png",
-        "Smithing": "https://oldschool.runescape.wiki/images/Smithing_icon.png",
-        "Mining": "https://oldschool.runescape.wiki/images/Mining_icon.png",
-        "Herblore": "https://oldschool.runescape.wiki/images/Herblore_icon.png",
-        "Agility": "https://oldschool.runescape.wiki/images/Agility_icon.png",
-        "Thieving": "https://oldschool.runescape.wiki/images/Thieving_icon.png",
-        "Slayer": "https://oldschool.runescape.wiki/images/Slayer_icon.png",
-        "Farming": "https://oldschool.runescape.wiki/images/Farming_icon.png",
-        "Runecraft": "https://oldschool.runescape.wiki/images/Runecraft_icon.png",
-        "Hunter": "https://oldschool.runescape.wiki/images/Hunter_icon.png",
-        "Construction": "https://oldschool.runescape.wiki/images/Construction_icon.png",
-        "Overall": "https://oldschool.runescape.wiki/images/Skills_icon.png"
+        "Attack": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/attack.png",
+        "Defence": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/defence.png",
+        "Strength": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/strength.png",
+        "Hitpoints": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/hitpoints.png",
+        "Ranged": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/ranged.png",
+        "Prayer": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/prayer.png",
+        "Magic": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/magic.png",
+        "Cooking": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/cooking.png",
+        "Woodcutting": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/woodcutting.png",
+        "Fletching": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/fletching.png",
+        "Fishing": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/fishing.png",
+        "Firemaking": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/firemaking.png",
+        "Crafting": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/crafting.png",
+        "Smithing": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/smithing.png",
+        "Mining": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/mining.png",
+        "Herblore": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/herblore.png",
+        "Agility": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/agility.png",
+        "Thieving": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/thieving.png",
+        "Slayer": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/slayer.png",
+        "Farming": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/farming.png",
+        "Runecraft": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/runecraft.png",
+        "Hunter": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/hunter.png",
+        "Construction": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/construction.png",
+        "Overall": "https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/skill_icons/overall.png"
     };
 
      const skillDropdownNames = Object.keys(skillIconUrls).filter(name => name !== "Overall").sort();
 
      const bossIconUrls = {
-        "Abyssal Sire": "https://oldschool.runescape.wiki/images/thumb/Abyssal_Sire.png/130px-Abyssal_Sire.png",
-        "Alchemical Hydra": "https://oldschool.runescape.wiki/images/thumb/Alchemical_Hydra.png/130px-Alchemical_Hydra.png",
-        "Artio": "https://oldschool.runescape.wiki/images/thumb/Artio.png/130px-Artio.png",
-        "Barrows Chests": "https://oldschool.runescape.wiki/images/thumb/Barrows_Chests.png/130px-Barrows_Chests.png",
-        "Bryophyta": "https://oldschool.runescape.wiki/images/thumb/Bryophyta.png/130px-Bryophyta.png",
-        "Callisto": "https://oldschool.runescape.wiki/images/thumb/Callisto.png/130px-Callisto.png",
-        "Calvar'ion": "https://oldschool.runescape.wiki/images/thumb/Calvar%27ion.png/130px-Calvar%27ion.png",
-        "Cerberus": "https://oldschool.runescape.wiki/images/thumb/Cerberus.png/130px-Cerberus.png",
-        "Chambers of Xeric": "https://oldschool.runescape.wiki/images/thumb/Chambers_of_Xeric_logo.png/130px-Chambers_of_Xeric_logo.png",
-        "Chambers of Xeric: Challenge Mode": "https://oldschool.runescape.wiki/images/thumb/Chambers_of_Xeric_Challenge_Mode_logo.png/130px-Chambers_of_Xeric_Challenge_Mode_logo.png",
-        "Chaos Elemental": "https://oldschool.runescape.wiki/images/thumb/Chaos_Elemental.png/130px-Chaos_Elemental.png",
-        "Chaos Fanatic": "https://oldschool.runescape.wiki/images/thumb/Chaos_Fanatic.png/130px-Chaos_Fanatic.png",
-        "Commander Zilyana": "https://oldschool.runescape.wiki/images/thumb/Commander_Zilyana.png/130px-Commander_Zilyana.png",
-        "Corporeal Beast": "https://oldschool.runescape.wiki/images/thumb/Corporeal_Beast.png/130px-Corporeal_Beast.png",
-        "Crazy Archaeologist": "https://oldschool.runescape.wiki/images/thumb/Crazy_archaeologist.png/130px-Crazy_archaeologist.png",
-        "Dagannoth Prime": "https://oldschool.runescape.wiki/images/thumb/Dagannoth_Prime.png/130px-Dagannoth_Prime.png",
-        "Dagannoth Rex": "https://oldschool.runescape.wiki/images/thumb/Dagannoth_Rex.png/130px-Dagannoth_Rex.png",
-        "Dagannoth Supreme": "https://oldschool.runescape.wiki/images/thumb/Dagannoth_Supreme.png/130px-Dagannoth_Supreme.png",
-        "Deranged Archaeologist": "https://oldschool.runescape.wiki/images/thumb/Deranged_archaeologist.png/130px-Deranged_archaeologist.png",
-        "Duke Sucellus": "https://oldschool.runescape.wiki/images/thumb/Duke_Sucellus.png/130px-Duke_Sucellus.png",
-        "General Graardor": "https://oldschool.runescape.wiki/images/thumb/General_Graardor.png/130px-General_Graardor.png",
-        "Giant Mole": "https://oldschool.runescape.wiki/images/thumb/Giant_Mole.png/130px-Giant_Mole.png",
-        "Grotesque Guardians": "https://oldschool.runescape.wiki/images/thumb/Grotesque_Guardians.png/130px-Grotesque_Guardians.png",
-        "Hespori": "https://oldschool.runescape.wiki/images/thumb/Hespori.png/130px-Hespori.png",
-        "Kalphite Queen": "https://oldschool.runescape.wiki/images/thumb/Kalphite_Queen.png/130px-Kalphite_Queen.png",
-        "King Black Dragon": "https://oldschool.runescape.wiki/images/thumb/King_Black_Dragon.png/130px-King_Black_Dragon.png",
-        "Kraken": "https://oldschool.runescape.wiki/images/thumb/Kraken.png/130px-Kraken.png",
-        "Kree'Arra": "https://oldschool.runescape.wiki/images/thumb/Kree%27arra.png/130px-Kree%27arra.png",
-        "K'ril Tsutsaroth": "https://oldschool.runescape.wiki/images/thumb/K%27ril_Tsutsaroth.png/130px-K%27ril_Tsutsaroth.png",
-        "Mimic": "https://oldschool.runescape.wiki/images/thumb/Mimic.png/130px-Mimic.png",
-        "Nex": "https://oldschool.runescape.wiki/images/thumb/Nex.png/130px-Nex.png",
-        "Nightmare": "https://oldschool.runescape.wiki/images/thumb/The_Nightmare.png/130px-The_Nightmare.png",
-        "Phosani's Nightmare": "https://oldschool.runescape.wiki/images/thumb/Phosani%27s_Nightmare.png/130px-Phosani%27s_Nightmare.png",
-        "Obor": "https://oldschool.runescape.wiki/images/thumb/Obor.png/130px-Obor.png",
-        "Phantom Muspah": "https://oldschool.runescape.wiki/images/thumb/Phantom_Muspah.png/130px-Phantom_Muspah.png",
-        "Sarachnis": "https://oldschool.runescape.wiki/images/thumb/Sarachnis.png/130px-Sarachnis.png",
-        "Scorpia": "https://oldschool.runescape.wiki/images/thumb/Scorpia.png/130px-Scorpia.png",
-        "Scurrius": "https://oldschool.runescape.wiki/images/thumb/Scurrius.png/130px-Scurrius.png",
-        "Skotizo": "https://oldschool.runescape.wiki/images/thumb/Skotizo.png/130px-Skotizo.png",
-        "Sol Heredit": "https://oldschool.runescape.wiki/images/thumb/Sol_Heredit.png/130px-Sol_Heredit.png",
-        "Spindel": "https://oldschool.runescape.wiki/images/thumb/Spindel.png/130px-Spindel.png",
-        "Tempoross": "https://oldschool.runescape.wiki/images/thumb/Tempoross.png/130px-Tempoross.png",
-        "The Gauntlet": "https://oldschool.runescape.wiki/images/thumb/The_Gauntlet_logo.png/130px-The_Gauntlet_logo.png",
-        "The Corrupted Gauntlet": "https://oldschool.runescape.wiki/images/thumb/The_Corrupted_Gauntlet_logo.png/130px-The_Corrupted_Gauntlet_logo.png",
-        "The Leviathan": "https://oldschool.runescape.wiki/images/thumb/The_Leviathan.png/130px-The_Leviathan.png",
-        "The Whisperer": "https://oldschool.runescape.wiki/images/thumb/The_Whisperer.png/130px-The_Whisperer.png",
-        "Theatre of Blood": "https://oldschool.runescape.wiki/images/thumb/Theatre_of_Blood_logo.png/130px-Theatre_of_Blood_logo.png",
-        "Theatre of Blood: Hard Mode": "https://oldschool.runescape.wiki/images/thumb/Theatre_of_Blood_Hard_Mode_logo.png/130px-Theatre_of_Blood_Hard_Mode_logo.png",
-        "Thermonuclear Smoke Devil": "https://oldschool.runescape.wiki/images/thumb/Thermonuclear_smoke_devil.png/130px-Thermonuclear_smoke_devil.png",
-        "Tombs of Amascut": "https://oldschool.runescape.wiki/images/thumb/Tombs_of_Amascut_logo.png/130px-Tombs_of_Amascut_logo.png",
-        "Tombs of Amascut: Expert Mode": "https://oldschool.runescape.wiki/images/thumb/Tombs_of_Amascut_Expert_Mode_logo.png/130px-Tombs_of_Amascut_Expert_Mode_logo.png",
-        "TzKal-Zuk": "https://oldschool.runescape.wiki/images/thumb/TzKal-Zuk.png/130px-TzKal-Zuk.png",
-        "TzTok-Jad": "https://oldschool.runescape.wiki/images/thumb/TzTok-Jad.png/130px-TzTok-Jad.png",
-        "Vardorvis": "https://oldschool.runescape.wiki/images/thumb/Vardorvis.png/130px-Vardorvis.png",
-        "Venenatis": "https://oldschool.runescape.wiki/images/thumb/Venenatis.png/130px-Venenatis.png",
-        "Vet'ion": "https://oldschool.runescape.wiki/images/thumb/Vet%27ion.png/130px-Vet%27ion.png",
-        "Vorkath": "https://oldschool.runescape.wiki/images/thumb/Vorkath.png/130px-Vorkath.png",
-        "Wintertodt": "https://oldschool.runescape.wiki/images/thumb/Wintertodt.png/130px-Wintertodt.png",
-        "Zalcano": "https://oldschool.runescape.wiki/images/thumb/Zalcano.png/130px-Zalcano.png",
-        "Zulrah": "https://oldschool.runescape.wiki/images/thumb/Zulrah.png/130px-Zulrah.png"
+        "Abyssal Sire": "https://oldschool.runescape.wiki/images/Abyssal_Sire_icon.png",
+        "Alchemical Hydra": "https://oldschool.runescape.wiki/images/Alchemical_Hydra_icon.png",
+        "Artio": "https://oldschool.runescape.wiki/images/Artio_icon.png",
+        "Barrows Chests": "https://oldschool.runescape.wiki/images/Barrows_Chests_icon.png",
+        "Bryophyta": "https://oldschool.runescape.wiki/images/Bryophyta_icon.png",
+        "Callisto": "https://oldschool.runescape.wiki/images/Callisto_icon.png",
+        "Calvar'ion": "https://oldschool.runescape.wiki/images/Calvar%27ion_icon.png",
+        "Cerberus": "https://oldschool.runescape.wiki/images/Cerberus_icon.png",
+        "Chambers of Xeric": "https://oldschool.runescape.wiki/images/Chambers_of_Xeric_icon.png",
+        "Chambers of Xeric: Challenge Mode": "https://oldschool.runescape.wiki/images/Chambers_of_Xeric_Challenge_Mode_icon.png",
+        "Chaos Elemental": "https://oldschool.runescape.wiki/images/Chaos_Elemental_icon.png",
+        "Chaos Fanatic": "https://oldschool.runescape.wiki/images/Chaos_Fanatic_icon.png",
+        "Commander Zilyana": "https://oldschool.runescape.wiki/images/Commander_Zilyana_icon.png",
+        "Corporeal Beast": "https://oldschool.runescape.wiki/images/Corporeal_Beast_icon.png",
+        "Crazy Archaeologist": "https://oldschool.runescape.wiki/images/Crazy_archaeologist_icon.png",
+        "Dagannoth Prime": "https://oldschool.runescape.wiki/images/Dagannoth_Prime_icon.png",
+        "Dagannoth Rex": "https://oldschool.runescape.wiki/images/Dagannoth_Rex_icon.png",
+        "Dagannoth Supreme": "https://oldschool.runescape.wiki/images/Dagannoth_Supreme_icon.png",
+        "Deranged Archaeologist": "https://oldschool.runescape.wiki/images/Deranged_archaeologist_icon.png",
+        "Duke Sucellus": "https://oldschool.runescape.wiki/images/Duke_Sucellus_icon.png",
+        "General Graardor": "https://oldschool.runescape.wiki/images/General_Graardor_icon.png",
+        "Giant Mole": "https://oldschool.runescape.wiki/images/Giant_Mole_icon.png",
+        "Grotesque Guardians": "https://oldschool.runescape.wiki/images/Grotesque_Guardians_icon.png",
+        "Hespori": "https://oldschool.runescape.wiki/images/Hespori_icon.png",
+        "Kalphite Queen": "https://oldschool.runescape.wiki/images/Kalphite_Queen_icon.png",
+        "King Black Dragon": "https://oldschool.runescape.wiki/images/King_Black_Dragon_icon.png",
+        "Kraken": "https://oldschool.runescape.wiki/images/Kraken_icon.png",
+        "Kree'Arra": "https://oldschool.runescape.wiki/images/Kree%27arra_icon.png",
+        "K'ril Tsutsaroth": "https://oldschool.runescape.wiki/images/K%27ril_Tsutsaroth_icon.png",
+        "Mimic": "https://oldschool.runescape.wiki/images/Mimic_icon.png",
+        "Nex": "https://oldschool.runescape.wiki/images/Nex_icon.png",
+        "Nightmare": "https://oldschool.runescape.wiki/images/The_Nightmare_icon.png",
+        "Phosani's Nightmare": "https://oldschool.runescape.wiki/images/Phosani%27s_Nightmare_icon.png",
+        "Obor": "https://oldschool.runescape.wiki/images/Obor_icon.png",
+        "Phantom Muspah": "https://oldschool.runescape.wiki/images/Phantom_Muspah_icon.png",
+        "Sarachnis": "https://oldschool.runescape.wiki/images/Sarachnis_icon.png",
+        "Scorpia": "https://oldschool.runescape.wiki/images/Scorpia_icon.png",
+        "Scurrius": "https://oldschool.runescape.wiki/images/Scurrius_icon.png",
+        "Skotizo": "https://oldschool.runescape.wiki/images/Skotizo_icon.png",
+        "Sol Heredit": "https://oldschool.runescape.wiki/images/Sol_Heredit_icon.png",
+        "Spindel": "https://oldschool.runescape.wiki/images/Spindel_icon.png",
+        "Tempoross": "https://oldschool.runescape.wiki/images/Tempoross_icon.png",
+        "The Gauntlet": "https://oldschool.runescape.wiki/images/The_Gauntlet_icon.png",
+        "The Corrupted Gauntlet": "https://oldschool.runescape.wiki/images/The_Corrupted_Gauntlet_icon.png",
+        "The Leviathan": "https://oldschool.runescape.wiki/images/The_Leviathan_icon.png",
+        "The Whisperer": "https://oldschool.runescape.wiki/images/The_Whisperer_icon.png",
+        "Theatre of Blood": "https://oldschool.runescape.wiki/images/Theatre_of_Blood_icon.png",
+        "Theatre of Blood: Hard Mode": "https://oldschool.runescape.wiki/images/Theatre_of_Blood_Hard_Mode_icon.png",
+        "Thermonuclear Smoke Devil": "https://oldschool.runescape.wiki/images/Thermonuclear_smoke_devil_icon.png",
+        "Tombs of Amascut": "https://oldschool.runescape.wiki/images/Tombs_of_Amascut_icon.png",
+        "Tombs of Amascut: Expert Mode": "https://oldschool.runescape.wiki/images/Tombs_of_Amascut_Expert_Mode_icon.png",
+        "TzKal-Zuk": "https://oldschool.runescape.wiki/images/TzKal-Zuk_icon.png",
+        "TzTok-Jad": "https://oldschool.runescape.wiki/images/TzTok-Jad_icon.png",
+        "Vardorvis": "https://oldschool.runescape.wiki/images/Vardorvis_icon.png",
+        "Venenatis": "https://oldschool.runescape.wiki/images/Venenatis_icon.png",
+        "Vet'ion": "https://oldschool.runescape.wiki/images/Vet%27ion_icon.png",
+        "Vorkath": "https://oldschool.runescape.wiki/images/Vorkath_icon.png",
+        "Wintertodt": "https://oldschool.runescape.wiki/images/Wintertodt_icon.png",
+        "Zalcano": "https://oldschool.runescape.wiki/images/Zalcano_icon.png",
+        "Zulrah": "https://oldschool.runescape.wiki/images/Zulrah_icon.png"
     };
 
     const bossActivityNames = Object.keys(bossIconUrls).sort();
@@ -1573,6 +1573,29 @@ document.addEventListener("DOMContentLoaded", () => {
     saveQuestsButton.addEventListener('click', saveQuests);
 
     loadQuests();
+
+    // ===================================
+    // --- THEME SWITCHER ---
+    // ===================================
+    const themeSwitcher = document.getElementById('theme-switcher');
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem('osrs-theme');
+    if (savedTheme) {
+        body.classList.add(savedTheme);
+    } else {
+        body.classList.add('dark-mode'); // Default to dark mode
+    }
+
+    themeSwitcher.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+            body.classList.replace('dark-mode', 'light-mode');
+            localStorage.setItem('osrs-theme', 'light-mode');
+        } else {
+            body.classList.replace('light-mode', 'dark-mode');
+            localStorage.setItem('osrs-theme', 'dark-mode');
+        }
+    });
 });
 
     // ===================================
