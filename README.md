@@ -6,6 +6,16 @@ A comprehensive, single-page web application for tracking and visualizing your O
 
 (https://glukt.github.io/osrs-dash/)
 
+# MAP CURRENTLY UNDER DEV ##
+Leaflet?
+pixi-viewport?
+Doogle maps?
+
+https://mapgenie.io/old-school-runescape/maps/runescape-surface ?
+https://oldschool.runescape.wiki/w/RuneScape:Map#mapFullscreen
+https://maps.runescape.wiki/osrs/#1/0/0/3232/3232
+
+
 ## Features
 
 *   **Character Lookup:** Fetch data for any OSRS character from the RuneLite WikiSync API.
