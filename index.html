@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSRS Progress Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Leaflet CSS for interactive map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
     <!-- Chart.js for statistics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
@@ -167,13 +165,6 @@
             <div id="quests-content">
                 <div class="quests-section">
                     <h3>Quest Progress</h3>
-                    <div class="quest-info-box">
-                        <p>Enter your completed quests below, one per line. This list will be saved in your browser.</p>
-                        <textarea id="quest-list-input" rows="10" placeholder="Cook's Assistant
-Dragon Slayer I
-..."></textarea>
-                        <button id="save-quests-button">Save Quests</button>
-                    </div>
                     <div id="quest-completion-display">
                         <h4>Your Saved Quests:</h4>
                         <ul id="quest-list-output"></ul>
@@ -219,28 +210,9 @@ Dragon Slayer I
 
         <!-- Interactive Map Tab -->
         <div class="tab-pane" id="map-tab">
-            <div class="map-controls">
-                <h2>Interactive OSRS Map</h2>
-                <div class="map-filters">
-                    <label>
-                        <input type="checkbox" id="show-bosses" checked> Bosses
-                    </label>
-                    <label>
-                        <input type="checkbox" id="show-slayer-masters" checked> Slayer Masters
-                    </label>
-                    <label>
-                        <input type="checkbox" id="show-npcs"> NPCs
-                    </label>
-                    <label>
-                        <input type="checkbox" id="show-quests"> Quest Locations
-                    </label>
-                    <button id="reset-map-view">Reset View</button>
-                </div>
-            </div>
             <div id="map-container">
-                <div id="osrs-map"></div>
+                <div id="map"></div>
             </div>
-            <div id="map-legend"></div>
         </div>
     </div>
 
@@ -251,8 +223,11 @@ Dragon Slayer I
         </ul>
     </div>
 
-    <!-- Leaflet JS for interactive map -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.0/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-viewport@5.0.2/dist/viewport.umd.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
