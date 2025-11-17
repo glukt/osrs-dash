@@ -146,11 +146,10 @@ function showBossDetails(bossName, bossData) {
         bossInfo.uniqueDrops.forEach(drop => {
             html += `
                 <tr>
-                    <td>
-                        <span class="drop-item-icon-placeholder">📦</span>
-                        <strong>${drop.name}</strong>
-                    </td>
-                    <td>${drop.rate}</td>
+                                            <td>
+                                                <img src="images/bosses/${bossName.toLowerCase().replace(/\s+/g, '_')}.png" alt="${drop.name}" class="drop-item-icon">
+                                                <strong>${drop.name}</strong>
+                                            </td>                    <td>${drop.rate}</td>
                     <td><span class="rarity-${drop.rarity.toLowerCase().replace(/\s+/g, '-')}">${drop.rarity}</span></td>
                 </tr>
             `;
