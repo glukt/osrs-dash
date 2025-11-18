@@ -1,0 +1,13 @@
+#pw-160x600_btf > div > iframe {
+   max-width: 160px !important;
+}
+
+#leaderboard_atf > div > iframe,
+#leaderboard_btf > div > iframe {
+   max-height: 98px !important;
+    max-width: 728px !important;
+}
+
+.adplacement {
+    overflow: hidden;
+}

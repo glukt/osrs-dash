@@ -1,132 +1,158 @@
-let osrsMap = null;
+// A simple, dependency-free pan and zoom map implementation.
+
+osrsMap = null; // Use the global variable
 
 function initializeMap() {
     const mapContainer = document.getElementById('map');
-    if (!mapContainer) return;
+    if (!mapContainer || osrsMap) return; // Already initialized
 
-    const app = new PIXI.Application({
-        width: mapContainer.clientWidth,
-        height: mapContainer.clientHeight,
-        backgroundColor: 0x0c0c0c,
-        resizeTo: mapContainer
-    });
-    mapContainer.appendChild(app.view);
+    mapContainer.innerHTML = '<div id="map-content"></div>';
+    const mapContent = document.getElementById('map-content');
 
-    // Create a viewport
-    const viewport = new Viewport.Viewport({
-        screenWidth: app.view.width,
-        screenHeight: app.view.height,
-        worldWidth: 1048576,
-        worldHeight: 1048576,
+    // --- Map State ---
+    let scale = 1;
+    let translateX = 0;
+    let translateY = 0;
+    let isDragging = false;
+    let lastX = 0;
+    let lastY = 0;
 
-        interaction: app.renderer.events // the interaction module is important for wheel to work properly
-    });
-
-    // add the viewport to the stage
-    app.stage.addChild(viewport);
-
-    // activate plugins
-    viewport
-        .drag()
-        .pinch()
-        .wheel()
-        .decelerate();
-
-    // add the map tiles
+    // --- Create Map Tiles ---
+    // Using a simple 4x4 grid from zoom level 2 for a basic map
+    const TILE_URL_TEMPLATE = 'https://raw.githubusercontent.com/explv/osrs_map_tiles/master/2/{x}/{y}.png';
+    const GRID_SIZE = 4;
     const TILE_SIZE = 256;
-    const tilesContainer = new PIXI.Container();
-    viewport.addChild(tilesContainer);
 
-    for (let x = 0; x < 16; x++) {
-        for (let y = 0; y < 16; y++) {
-            const tile = new PIXI.Sprite(PIXI.Texture.from(`https://maps.runescape.wiki/osrs/2020-02-10/0/${x}/${y}.png`));
-            tile.position.set(x * TILE_SIZE, y * TILE_SIZE);
-            tilesContainer.addChild(tile);
+    for (let x = 0; x < GRID_SIZE; x++) {
+        for (let y = 0; y < GRID_SIZE; y++) {
+            const tile = new Image();
+            tile.crossOrigin = "anonymous"; // Help prevent CORS issues
+            tile.src = TILE_URL_TEMPLATE.replace('{x}', x).replace('{y}', y);
+            tile.className = 'map-tile';
+            tile.style.position = 'absolute';
+            tile.style.left = `${x * TILE_SIZE}px`;
+            tile.style.top = `${y * TILE_SIZE}px`;
+            mapContent.appendChild(tile);
         }
     }
+    mapContent.style.width = `${GRID_SIZE * TILE_SIZE}px`;
+    mapContent.style.height = `${GRID_SIZE * TILE_SIZE}px`;
 
-    osrsMap = viewport;
-    addMapMarkers();
+    function updateTransform() {
+        mapContent.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+
+    // --- Event Listeners ---
+    mapContainer.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        isDragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        mapContainer.style.cursor = 'grabbing';
+    });
+
+    mapContainer.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        translateX += dx;
+        translateY += dy;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        updateTransform();
+    });
+
+    mapContainer.addEventListener('mouseup', () => {
+        isDragging = false;
+        mapContainer.style.cursor = 'grab';
+    });
+
+    mapContainer.addEventListener('mouseleave', () => {
+        isDragging = false;
+        mapContainer.style.cursor = 'grab';
+    });
+
+    mapContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const scaleAmount = e.deltaY > 0 ? 0.9 : 1.1;
+        const newScale = scale * scaleAmount;
+
+        // Clamp scale
+        if (newScale < 0.5 || newScale > 5) {
+            return;
+        }
+
+        const rect = mapContainer.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        // Adjust translate to zoom towards the mouse pointer
+        translateX = mouseX - (mouseX - translateX) * scaleAmount;
+        translateY = mouseY - (mouseY - translateY) * scaleAmount;
+        scale = newScale;
+
+        updateTransform();
+    });
+    
+    // Set initial state
+    mapContainer.style.cursor = 'grab';
+    updateTransform();
+
+    // Expose a minimal API via the global osrsMap object
+    osrsMap = {
+        container: mapContainer,
+        content: mapContent,
+        addMarkers: addMapMarkers
+    };
+
+    osrsMap.addMarkers();
 }
 
 function addMapMarkers() {
-    const markerContainer = new PIXI.Container();
-    osrsMap.addChild(markerContainer);
+    if (!osrsMap || !osrsMap.content) return;
+    const mapContent = osrsMap.content;
+
+    // Simple conversion from game coords to map pixels for this tile set
+    // This is a rough approximation and may need refinement.
+    // Based on the wiki map, total map size is ~8192x10496 at zoom level 4.
+    // Our map is 1024x1024 at zoom level 2. So we need to scale down.
+    const GAME_X_MIN = 1152;
+    const GAME_X_MAX = 3903;
+    const GAME_Y_MIN = 2496;
+    const GAME_Y_MAX = 4735;
+    const MAP_PIXEL_WIDTH = 1024;
+    const MAP_PIXEL_HEIGHT = 1024;
 
     const mapLocations = {
         bosses: [
-            { name: "Abyssal Sire", coords: [3100, 2600], type: "boss" },
-            { name: "Alchemical Hydra", coords: [1360, 10260], type: "boss" },
-            { name: "Artio", coords: [1730, 10000], type: "boss" },
+            { name: "Lumbridge", coords: [3222, 3218], type: "city" },
+            { name: "Varrock", coords: [3210, 3424], type: "city" },
+            { name: "Falador", coords: [2964, 3378], type: "city" },
+            { name: "Grand Exchange", coords: [3165, 3478], type: "poi" },
+            { name: "Wintertodt", coords: [1630, 3962], type: "minigame" },
             { name: "Barrows", coords: [3565, 3315], type: "boss" },
-            { name: "Callisto", coords: [3320, 3840], type: "boss" },
-            { name: "Cerberus", coords: [1310, 1250], type: "boss" },
-            { name: "Chambers of Xeric", coords: [1230, 3570], type: "raid" },
-            { name: "Chaos Elemental", coords: [3280, 3920], type: "boss" },
-            { name: "Commander Zilyana", coords: [2910, 5300], type: "boss" },
-            { name: "Corporeal Beast", coords: [2965, 4380], type: "boss" },
-            { name: "Dagannoth Kings", coords: [2540, 10150], type: "boss" },
-            { name: "Duke Sucellus", coords: [3740, 10220], type: "boss" },
-            { name: "General Graardor", coords: [2860, 5360], type: "boss" },
-            { name: "Giant Mole", coords: [1760, 5180], type: "boss" },
-            { name: "Grotesque Guardians", coords: [3430, 3540], type: "boss" },
-            { name: "Kalphite Queen", coords: [3480, 9510], type: "boss" },
-            { name: "King Black Dragon", coords: [2270, 4700], type: "boss" },
-            { name: "Kraken", coords: [2280, 10020], type: "boss" },
-            { name: "Kree'Arra", coords: [2540, 2870], type: "boss" },
-            { name: "K'ril Tsutsaroth", coords: [2920, 5330], type: "boss" },
-            { name: "Nex", coords: [2900, 5200], type: "boss" },
-            { name: "Nightmare", coords: [3800, 9760], type: "boss" },
-            { name: "Phantom Muspah", coords: [2540, 10150], type: "boss" },
-            { name: "Sarachnis", coords: [1840, 4630], type: "boss" },
-            { name: "Scorpia", coords: [3230, 3940], type: "boss" },
-            { name: "Scurrius", coords: [3230, 10280], type: "boss" },
-            { name: "Skotizo", coords: [3400, 3550], type: "boss" },
-            { name: "Tempoross", coords: [1780, 3600], type: "minigame" },
-            { name: "The Gauntlet", coords: [1230, 3570], type: "raid" },
-            { name: "The Leviathan", coords: [3740, 10220], type: "boss" },
-            { name: "The Whisperer", coords: [3740, 10220], type: "boss" },
-            { name: "Theatre of Blood", coords: [3670, 3210], type: "raid" },
-            { name: "Thermonuclear Smoke Devil", coords: [2400, 9440], type: "boss" },
-            { name: "Tombs of Amascut", coords: [3350, 9120], type: "raid" },
-            { name: "TzKal-Zuk", coords: [2440, 5170], type: "boss" },
-            { name: "TzTok-Jad", coords: [2440, 5170], type: "boss" },
-            { name: "Vardorvis", coords: [3740, 10220], type: "boss" },
-            { name: "Venenatis", coords: [3300, 3750], type: "boss" },
-            { name: "Vet'ion", coords: [3220, 3780], type: "boss" },
-            { name: "Vorkath", coords: [2270, 4050], type: "boss" },
-            { name: "Wintertodt", coords: [1630, 3940], type: "minigame" },
-            { name: "Zalcano", coords: [1230, 3570], type: "boss" },
-            { name: "Zulrah", coords: [2200, 3050], type: "boss" }
         ],
-        slayerMasters: [
-            { name: "Turael", coords: [2930, 3530], type: "slayer" },
-            { name: "Spria", coords: [2930, 3530], type: "slayer" },
-            { name: "Krystilia", coords: [3090, 3500], type: "slayer" },
-            { name: "Mazchna", coords: [3510, 3500], type: "slayer" },
-            { name: "Vannaka", coords: [3140, 9910], type: "slayer" },
-            { name: "Chaeldar", coords: [2440, 4430], type: "slayer" },
-            { name: "Nieve", coords: [2430, 3420], type: "slayer" },
-            { name: "Steve", coords: [2430, 3420], type: "slayer" },
-            { name: "Duradel", coords: [2870, 2980], type: "slayer" },
-            { name: "Konar", coords: [1310, 3790], type: "slayer" }
-        ],
-        npcs: [
-            { name: "Wise Old Man", coords: [3088, 3250], type: "npc" },
-            { name: "Hans", coords: [3210, 3210], type: "npc" },
-            { name: "Banker", coords: [3090, 3240], type: "npc" }
-        ]
     };
 
     for (const type in mapLocations) {
         mapLocations[type].forEach(loc => {
-            const [x, y] = loc.coords;
-            const marker = new PIXI.Graphics();
-            marker.beginFill(0xff0000);
-            marker.drawCircle(0, 0, 5);
-            marker.endFill();
-            marker.position.set(x, y);
-            markerContainer.addChild(marker);
+            // This coordinate conversion is a placeholder and likely incorrect.
+            // A proper implementation would need a more accurate projection.
+            const percentX = (loc.coords[0] - GAME_X_MIN) / (GAME_X_MAX - GAME_X_MIN);
+            const percentY = (loc.coords[1] - GAME_Y_MIN) / (GAME_Y_MAX - GAME_Y_MIN);
+            
+            const x = percentX * MAP_PIXEL_WIDTH;
+            const y = (1 - percentY) * MAP_PIXEL_HEIGHT; // Y is often inverted
+
+            if (x > 0 && x < MAP_PIXEL_WIDTH && y > 0 && y < MAP_PIXEL_HEIGHT) {
+                const marker = document.createElement('div');
+                marker.className = `map-marker ${loc.type}`;
+                marker.style.left = `${x}px`;
+                marker.style.top = `${y}px`;
+                marker.title = loc.name;
+                mapContent.appendChild(marker);
+            }
         });
     }
 }

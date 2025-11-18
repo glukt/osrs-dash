@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSRS Progress Dashboard</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/style.css">
     <!-- Chart.js for statistics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -11,7 +12,7 @@
 <body>
 
     <div class="header">
-        <h1>OSRS Progress Dashboard</h1>
+        <h1>OSRS Dashboard for <span id="player-name-display">...</span></h1>
         <button id="theme-switcher">Toggle Theme</button>
     </div>
 
@@ -23,10 +24,10 @@
         <div>
             <label for="accountType">Account Type:</label>
             <select id="accountType">
-                <option value="normal">Normal (GIM, Main)</option>
+                <option value="normal">Normal</option>
                 <option value="ironman">Ironman</option>
-                <option value="hardcore_ironman">Hardcore Ironman (HCIM)</option>
-                <option value="ultimate_ironman">Ultimate Ironman (UIM)</option>
+                <option value="hardcore_ironman">Hardcore Ironman</option>
+                <option value="ultimate_ironman">Ultimate Ironman</option>
             </select>
         </div>
         <button id="loadButton">Load Character</button>
@@ -223,8 +224,15 @@
         </ul>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.4.0/pixi.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pixi-viewport@5.0.2/dist/viewport.umd.js"></script>
+    <script>
+        // Define shared state variables globally
+        window.goals = [];
+        window.hiscoresData = { skills: {}, bosses: {} };
+        window.xpChart = null;
+        window.levelChart = null;
+        window.osrsMap = null;
+    </script>
+
     <script src="js/api.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/map.js"></script>

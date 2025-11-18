@@ -1,419 +1,205 @@
+// ===================================
+// --- UI RENDERING FUNCTIONS ---
+// ===================================
+
+function updateOverview(hiscoresData) {
+    const skills = hiscoresData.skills || {};
+    const totalLevel = skills.Overall?.level ?? 0;
+    const totalXp = skills.Overall?.xp ?? 0;
+    
+    let combatLevel = 0;
+    const combatSkills = ["Attack", "Strength", "Defence", "Hitpoints", "Prayer", "Ranged", "Magic"];
+    const hasAllCombatSkills = combatSkills.every(s => skills[s]);
+
+    if (hasAllCombatSkills) {
+        const base = 0.25 * (skills.Defence.level + skills.Hitpoints.level + Math.floor(skills.Prayer.level / 2));
+        const melee = 0.325 * (skills.Attack.level + skills.Strength.level);
+        const range = 0.325 * (Math.floor(skills.Ranged.level / 2) + skills.Ranged.level);
+        const mage = 0.325 * (Math.floor(skills.Magic.level / 2) + skills.Magic.level);
+        combatLevel = Math.floor(base + Math.max(melee, range, mage));
+    }
+
+    const maxedSkills = Object.values(skills).filter(s => s.level === 99).length;
+
+    document.getElementById('total-level').textContent = totalLevel > 0 ? totalLevel.toLocaleString() : "N/A";
+    document.getElementById('total-xp').textContent = totalXp > 0 ? totalXp.toLocaleString() : "N/A";
+    document.getElementById('combat-level').textContent = combatLevel > 0 ? combatLevel : "N/A";
+    document.getElementById('maxed-skills').textContent = maxedSkills > 0 ? maxedSkills : "0";
+}
+
+function renderSkillsGrid(skills, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    Object.keys(skillIconUrls).forEach(skillName => {
+        const skill = skills[skillName];
+        const skillEl = document.createElement('div');
+        skillEl.className = 'skill-card';
+        skillEl.dataset.skillName = skillName;
+        
+        const level = skill?.level ?? 'N/A';
+        const xp = skill?.xp ?? -1;
+        const rank = skill?.rank ?? -1;
+
+        skillEl.innerHTML = `
+            <div class="skill-icon"><img src="${skillIconUrls[skillName]}" alt="${skillName}"></div>
+            <div class="skill-info">
+                <div class="skill-name">${skillName}</div>
+                <div class="skill-level">Level: ${level}</div>
+                ${xp > -1 ? `<div class="skill-xp">XP: ${xp.toLocaleString()}</div>` : ''}
+            </div>
+            ${rank > -1 ? `<div class="skill-rank">#${rank.toLocaleString()}</div>` : ''}
+        `;
+        
+        if (skill) {
+            skillEl.addEventListener('click', () => showSkillDetails(skillName, skill));
+        }
+        container.appendChild(skillEl);
+    });
+}
+
+function renderActivitiesGrid(bosses, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (Object.keys(bosses).length === 0) {
+        container.innerHTML = `<p style="padding: 20px; text-align: center; color: #888;">No boss or activity data found for this player.</p>`;
+        return;
+    }
+
+    Object.entries(bosses).forEach(([bossName, bossData]) => {
+        const bossEl = document.createElement('div');
+        bossEl.className = 'activity-card';
+        
+        const score = bossData.score ?? 'N/A';
+        const rank = bossData.rank ?? -1;
+
+        bossEl.innerHTML = `
+            <div class="activity-info">
+                <div class="activity-name">${bossName}</div>
+                <div class="activity-score">Kills: ${score.toLocaleString()}</div>
+            </div>
+            ${rank > -1 ? `<div class="activity-rank">#${rank.toLocaleString()}</div>` : ''}
+        `;
+        container.appendChild(bossEl);
+    });
+}
+
 function showSkillDetails(skillName, skillData) {
     const detailsPanel = document.getElementById('skill-details-panel');
     if (!detailsPanel) return;
 
-    const currentLevel = skillData.level || 0;
-    const currentXp = skillData.xp || 0;
-    const unlocks = skillUnlocks[skillName] || [];
-    
-    // Sort unlocks by level (null levels go to end)
-    const sortedUnlocks = unlocks.sort((a, b) => {
-        if (a.level === null && b.level === null) return 0;
-        if (a.level === null) return 1;
-        if (b.level === null) return -1;
-        return a.level - b.level;
-    });
-    
-    // Group unlocks by category
-    const unlocksByCategory = {};
-    sortedUnlocks.forEach(unlock => {
-        if (!unlocksByCategory[unlock.category]) {
-            unlocksByCategory[unlock.category] = [];
-        }
-        unlocksByCategory[unlock.category].push(unlock);
-    });
-
-    let html = `
+    detailsPanel.innerHTML = `
         <div class="skill-details-header">
             <h3>${skillName} Details</h3>
-            <button class="close-details" onclick="document.getElementById('skill-details-panel').classList.remove('active')">×</button>
+            <button class="close-details" onclick="document.getElementById('skill-details-panel').style.display='none'">&times;</button>
         </div>
         <div class="skill-stats">
-            <div class="stat-item">
-                <strong>Current Level:</strong> ${currentLevel}
-            </div>
-            <div class="stat-item">
-                <strong>Current XP:</strong> ${currentXp.toLocaleString()}
-            </div>
-            <div class="stat-item">
-                <strong>XP to Next Level:</strong> ${currentLevel < 99 ? (getXpForLevel(currentLevel + 1) - currentXp).toLocaleString() : 'Maxed!'}
-            </div>
-        </div>
-        <div class="unlocks-section">
-            <h4>Unlocks & Requirements</h4>
-    `;
-
-    // Display unlocks by category
-    if (Object.keys(unlocksByCategory).length === 0) {
-        html += `<p style="color: #888; text-align: center; padding: 20px;">No unlock data available for this skill.</p>`;
-    } else {
-        Object.keys(unlocksByCategory).sort().forEach(category => {
-            html += `<div class="unlock-category">
-                <h5>${category} (${unlocksByCategory[category].length})</h5>
-                <ul class="unlock-list">`;
-            
-            unlocksByCategory[category].forEach(unlock => {
-                const isUnlocked = unlock.level === null ? false : currentLevel >= unlock.level;
-                const unlockClass = isUnlocked ? 'unlocked' : 'locked';
-                const levelDisplay = unlock.level !== null ? `Lvl ${unlock.level}` : 'N/A';
-                html += `
-                    <li class="unlock-item ${unlockClass}" 
-                        data-skill="${skillName}" 
-                        data-level="${unlock.level || 0}" 
-                        data-unlock-name="${unlock.name}"
-                        data-unlock-type="${unlock.type}">
-                        <span class="unlock-level">${levelDisplay}</span>
-                        <span class="unlock-name">${unlock.name}</span>
-                        <span class="unlock-status">${isUnlocked ? '✓ Unlocked' : '🔒 Locked'}</span>
-                    </li>
-                `;
-            });
-            
-            html += `</ul></div>`;
-        });
-    }
-
-    html += `</div>`;
-
-    detailsPanel.innerHTML = html;
-    detailsPanel.classList.add('active');
-
-    // Add right-click context menu to unlock items
-    const unlockItems = detailsPanel.querySelectorAll('.unlock-item');
-    unlockItems.forEach(item => {
-        item.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            showUnlockContextMenu(e, item);
-        });
-    });
-}
-
-function showBossDetails(bossName, bossData) {
-    const detailsPanel = document.getElementById('boss-details-panel');
-    if (!detailsPanel) return;
-
-    const currentKc = bossData.kc || 0;
-    const bossInfo = bossUnlocksAndDrops[bossName] || { unlocks: [], uniqueDrops: [] };
-
-    let html = `
-        <div class="boss-details-header">
-            <h3>${bossName} Details</h3>
-            <button class="close-details" onclick="document.getElementById('boss-details-panel').classList.remove('active')">×</button>
-        </div>
-        <div class="boss-stats">
-            <div class="stat-item">
-                <strong>Kill Count:</strong> ${currentKc.toLocaleString()}
-            </div>
-            <div class="stat-item">
-                <strong>Rank:</strong> ${bossData.rank > 0 ? bossData.rank.toLocaleString() : 'Unranked'}
-            </div>
-        </div>
-    `;
-
-    // Show unlocks
-    if (bossInfo.unlocks && bossInfo.unlocks.length > 0) {
-        html += `
-            <div class="unlocks-section">
-                <h4>Unlocks & Requirements</h4>
-                <ul class="unlock-list">
-        `;
-        bossInfo.unlocks.forEach(unlock => {
-            html += `
-                <li class="unlock-item">
-                    <span class="unlock-name">${unlock.name}</span>
-                    <span class="unlock-category">${unlock.category}</span>
-                </li>
-            `;
-        });
-        html += `</ul></div>`;
-    }
-
-    // Show unique drops
-    if (bossInfo.uniqueDrops && bossInfo.uniqueDrops.length > 0) {
-        html += `
-            <div class="drops-section">
-                <h4>Unique Drops</h4>
-                <table class="drops-table">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Drop Rate</th>
-                            <th>Rarity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-        `;
-        bossInfo.uniqueDrops.forEach(drop => {
-            html += `
-                <tr>
-                                            <td>
-                                                <img src="images/bosses/${bossName.toLowerCase().replace(/\s+/g, '_')}.png" alt="${drop.name}" class="drop-item-icon">
-                                                <strong>${drop.name}</strong>
-                                            </td>                    <td>${drop.rate}</td>
-                    <td><span class="rarity-${drop.rarity.toLowerCase().replace(/\s+/g, '-')}">${drop.rarity}</span></td>
-                </tr>
-            `;
-        });
-        html += `</tbody></table></div>`;
-    } else {
-        html += `
-            <div class="drops-section">
-                <h4>Unique Drops</h4>
-                <p style="color: #888; padding: 15px; text-align: center;">
-                    Drop table data not yet available for this boss. Check back soon!
-                </p>
-            </div>
-        `;
-    }
-
-    html += `</div>`;
-
-    detailsPanel.innerHTML = html;
-    detailsPanel.classList.add('active');
+            <div class="stat-item"><strong>Level:</strong> ${skillData.level.toLocaleString()}</div>
+            <div class="stat-item"><strong>XP:</strong> ${skillData.xp.toLocaleString()}</div>
+            <div class="stat-item"><strong>Rank:</strong> ${skillData.rank > 0 ? skillData.rank.toLocaleString() : 'Unranked'}</div>
+        </div>`;
+    detailsPanel.style.display = 'block';
 }
 
 function renderGoals() {
     const goalsListContainer = document.getElementById("goals-list");
+    if (!goalsListContainer) return;
     goalsListContainer.innerHTML = "";
 
-    if (!Array.isArray(goals) || goals.length === 0) {
+    if (!Array.isArray(window.goals) || window.goals.length === 0) {
         goalsListContainer.innerHTML = "<p>No active goals. Add one above!</p>";
         return;
     }
 
-    goals.forEach((goal, index) => {
-        if (!goal || typeof goal !== 'object' || !goal.name || !goal.type || typeof goal.target !== 'number') {
-            console.warn(`Skipping invalid goal structure at index ${index}:`, goal); return;
-        }
-
-        let currentLevel = 0, currentXp = 0, startXp = 0, targetXp = 0;
-        let goalNameStandard = goal.name.toLowerCase().trim().replace(/\s+/g, ' ');
-
-        try {
-            if (goal.type === "skill") {
-                let skillFound = false;
-                if (hiscoresData.skills) {
-                    for (const skillKey in hiscoresData.skills) {
-                        if (skillKey.toLowerCase().trim().replace(/\s+/g, ' ') === goalNameStandard) {
-                            currentLevel = hiscoresData.skills[skillKey]?.level ?? 0;
-                            currentXp = hiscoresData.skills[skillKey]?.xp ?? 0;
-                            skillFound = true; break;
-                        }
-                    }
-                }
-                targetXp = getXpForLevel(goal.target);
-                startXp = getXpForLevel(goal.target - 1);
-            } else if (goal.type === "boss") {
-                if (hiscoresData.bosses) {
-                    for (const bossKey in hiscoresData.bosses) {
-                        if (bossKey.toLowerCase().trim().replace(/\s+/g, ' ') === goalNameStandard) {
-                            currentLevel = hiscoresData.bosses[bossKey]?.kc ?? 0; break;
-                        }
-                    }
-                }
-                currentXp = currentLevel; startXp = 0; targetXp = goal.target;
-            }
-        } catch (e) { console.error("Error processing goal data:", e, "Goal:", goal); return; }
-
-        let progressPercent = 0;
-        const range = targetXp - startXp;
-        const currentVal = (goal.type === 'skill') ? currentXp : currentLevel;
-        const targetVal = goal.target;
-
-        if (typeof currentVal === 'number' && typeof targetVal === 'number' && typeof startXp === 'number' && typeof targetXp === 'number') {
-            if (range > 0) {
-                const currentProgressInRange = Math.max(0, currentXp - startXp);
-                progressPercent = (currentProgressInRange / range) * 100;
-                progressPercent = Math.max(0, Math.min(100, progressPercent));
-            } else if ((goal.type === 'skill' && currentLevel >= targetVal) || (goal.type === 'boss' && currentLevel >= targetVal)) {
-                progressPercent = 100;
-            }
-            if (isNaN(progressPercent)) progressPercent = 0;
-        } else { progressPercent = 0; }
-
+    window.goals.forEach((goal, index) => {
         const goalElement = document.createElement("div");
         goalElement.className = "goal";
-        const isCompleted = (goal.type === 'skill' && currentLevel >= goal.target) || (goal.type === 'boss' && currentLevel >= goal.target);
-        if (isCompleted) {
-            goalElement.classList.add("completed");
-            progressPercent = 100;
+        let current = 0;
+        let progressPercent = 0;
+
+        if (goal.type === 'skill' && window.hiscoresData?.skills?.[goal.name]) {
+            current = window.hiscoresData.skills[goal.name].level;
+            progressPercent = (current / goal.target) * 100;
+        } else if (goal.type === 'boss' && window.hiscoresData?.bosses?.[goal.name]) {
+            current = window.hiscoresData.bosses[goal.name].score;
+            progressPercent = (current / goal.target) * 100;
         }
 
-        const goalText = document.createElement("span");
-        if (goal.type === 'skill') {
-            const xpString = (typeof currentXp === 'number' && currentXp >= 0) ? currentXp.toLocaleString() : 'N/A';
-            goalText.innerHTML = `<strong>${goal.name}</strong> Lvl: ${currentLevel} / ${goal.target} <em>(XP: ${xpString})</em>`;
-        } else {
-            goalText.innerHTML = `<strong>${goal.name}</strong> KC: ${currentLevel.toLocaleString()} / ${goal.target.toLocaleString()}`;
-        }
+        const isCompleted = current >= goal.target;
+        if (isCompleted) goalElement.classList.add("completed");
 
-        const progressBarContainer = document.createElement("div");
-        progressBarContainer.className = "progress-bar-container";
-        const progressBarFill = document.createElement("div");
-        progressBarFill.className = "progress-bar-fill";
-        progressBarFill.style.width = `${Math.max(0, Math.min(100, progressPercent || 0))}%`;
-        progressBarContainer.appendChild(progressBarFill);
-
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.setAttribute("data-index", index);
-
-        const infoAndBar = document.createElement('div');
-        infoAndBar.style.flexGrow = '1';
-        infoAndBar.appendChild(goalText);
-        infoAndBar.appendChild(progressBarContainer);
-
-        goalElement.appendChild(infoAndBar);
-        goalElement.appendChild(deleteButton);
+        goalElement.innerHTML = `
+            <div style="flex-grow: 1;">
+                <span><strong>${goal.name}</strong> Target: ${goal.target.toLocaleString()} (Current: ${current.toLocaleString()})</span>
+                <div class="progress-bar-container"><div class="progress-bar-fill" style="width: ${Math.min(100, progressPercent)}%"></div></div>
+            </div>
+            <button data-index="${index}">Delete</button>`;
         goalsListContainer.appendChild(goalElement);
     });
-}
-
-function updateQuests(quests) {
-    const questListOutput = document.getElementById('quest-list-output');
-    questListOutput.innerHTML = '';
-
-    if (!quests) {
-        questListOutput.innerHTML = '<li>No quest data found.</li>';
-        return;
-    }
-
-    for (const questName in quests) {
-        if (quests[questName].status === 'COMPLETED') {
-            const li = document.createElement('li');
-            li.textContent = questName;
-            questListOutput.appendChild(li);
-        }
-    }
 }
 
 function populateDropdowns() {
     const goalNameSkillSelect = document.getElementById("goalNameSkill");
     const goalNameBossSelect = document.getElementById("goalNameBoss");
-    goalNameSkillSelect.innerHTML = '';
-    goalNameBossSelect.innerHTML = '';
 
-    skillDropdownNames.forEach(skillName => {
-        const option = document.createElement("option");
-        option.value = skillName;
-        option.textContent = skillName;
-        goalNameSkillSelect.appendChild(option);
-    });
-
-    bossActivityNames.forEach(bossName => {
-        const option = document.createElement("option");
-        option.value = bossName;
-        option.textContent = bossName;
-        goalNameBossSelect.appendChild(option);
-    });
-}
-
-function showUnlockContextMenu(event, unlockElement) {
-    const contextMenu = document.getElementById('custom-context-menu');
-    if (!contextMenu) return;
-
-    const skillName = unlockElement.getAttribute('data-skill');
-    const level = unlockElement.getAttribute('data-level');
-    const unlockName = unlockElement.getAttribute('data-unlock-name');
-    const unlockType = unlockElement.getAttribute('data-unlock-type');
-
-    // Position context menu
-    contextMenu.style.display = 'block';
-    contextMenu.style.left = event.pageX + 'px';
-    contextMenu.style.top = event.pageY + 'px';
-
-    // Update context menu actions
-    const setGoalAction = contextMenu.querySelector('[data-action="set-goal"]');
-    if (setGoalAction) {
-        setGoalAction.onclick = () => {
-            // Create goal for this unlock
-            goals.push({
-                type: 'skill',
-                name: skillName,
-                target: parseInt(level),
-                unlockName: unlockName,
-                unlockType: unlockType
-            });
-            saveGoals();
-            renderGoals();
-            contextMenu.style.display = 'none';
-            
-            // Show notification
-            alert(`Goal set: Reach Level ${level} ${skillName} for ${unlockName}`);
-        };
+    if (goalNameSkillSelect) {
+        goalNameSkillSelect.innerHTML = '';
+        skillDropdownNames.forEach(skillName => {
+            const option = document.createElement("option");
+            option.value = skillName;
+            option.textContent = skillName;
+            goalNameSkillSelect.appendChild(option);
+        });
     }
-
-    const viewWikiAction = contextMenu.querySelector('[data-action="view-wiki"]');
-    if (viewWikiAction) {
-        viewWikiAction.onclick = () => {
-            const wikiUrl = `https://oldschool.runescape.wiki/w/${encodeURIComponent(unlockName)}`;
-            window.open(wikiUrl, '_blank');
-            contextMenu.style.display = 'none';
-        };
+    if (goalNameBossSelect) {
+        goalNameBossSelect.innerHTML = '';
+        bossActivityNames.forEach(bossName => {
+            const option = document.createElement("option");
+            option.value = bossName;
+            option.textContent = bossName;
+            goalNameBossSelect.appendChild(option);
+        });
     }
-
-    // Close menu when clicking elsewhere
-    const closeMenu = (e) => {
-        if (!contextMenu.contains(e.target) && e.target !== unlockElement) {
-            contextMenu.style.display = 'none';
-            document.removeEventListener('click', closeMenu);
-        }
-    };
-    setTimeout(() => document.addEventListener('click', closeMenu), 100);
 }
 
 function createCharts() {
-    const xpData = {
-        labels: Object.keys(hiscoresData.skills).filter(name => name !== 'Overall'),
-        datasets: [{
-            label: 'XP Distribution',
-            data: Object.values(hiscoresData.skills).filter(skill => skill.name !== 'Overall').map(skill => skill.xp),
-            backgroundColor: 'rgba(245, 158, 11, 0.5)',
-            borderColor: 'rgba(245, 158, 11, 1)',
-            borderWidth: 1
-        }]
-    };
+    const skills = window.hiscoresData?.skills || {};
+    const skillNames = Object.keys(skills).filter(name => name !== 'Overall' && skills[name] && skills[name].xp > 0);
+    
+    const levelChartCard = document.getElementById('level-chart')?.closest('.stat-card');
+    const xpChartCard = document.getElementById('xp-chart')?.closest('.stat-card');
+
+    if (skillNames.length === 0) {
+        if (levelChartCard) levelChartCard.style.display = 'none';
+        if (xpChartCard) xpChartCard.style.display = 'none';
+        return;
+    }
+
+    const skillLevels = skillNames.map(name => skills[name].level);
+    const skillXps = skillNames.map(name => skills[name].xp);
 
     const levelData = {
-        labels: Object.keys(hiscoresData.skills).filter(name => name !== 'Overall'),
-        datasets: [{
-            label: 'Level Distribution',
-            data: Object.values(hiscoresData.skills).filter(skill => skill.name !== 'Overall').map(skill => skill.level),
-            backgroundColor: 'rgba(59, 130, 246, 0.5)',
-            borderColor: 'rgba(59, 130, 246, 1)',
-            borderWidth: 1
-        }]
+        labels: skillNames,
+        datasets: [{ label: 'Skill Levels', data: skillLevels, backgroundColor: 'rgba(59, 130, 246, 0.5)' }]
+    };
+    const xpData = {
+        labels: skillNames,
+        datasets: [{ label: 'Skill XP', data: skillXps, backgroundColor: 'rgba(34, 197, 94, 0.5)' }]
     };
 
-    const xpChartCtx = document.getElementById('xp-chart').getContext('2d');
-    if (xpChart) {
-        xpChart.destroy();
+    if (levelChartCard) {
+        levelChartCard.style.display = 'block';
+        const ctx = levelChartCard.querySelector('canvas').getContext('2d');
+        if (window.levelChart) window.levelChart.destroy();
+        window.levelChart = new Chart(ctx, { type: 'bar', data: levelData, options: { scales: { y: { beginAtZero: true } } } });
     }
-    xpChart = new Chart(xpChartCtx, {
-        type: 'bar',
-        data: xpData,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    const levelChartCtx = document.getElementById('level-chart').getContext('2d');
-    if (levelChart) {
-        levelChart.destroy();
+    if (xpChartCard) {
+        xpChartCard.style.display = 'block';
+        const ctx = xpChartCard.querySelector('canvas').getContext('2d');
+        if (window.xpChart) window.xpChart.destroy();
+        window.xpChart = new Chart(ctx, { type: 'bar', data: xpData, options: { scales: { y: { beginAtZero: true } } } });
     }
-    levelChart = new Chart(levelChartCtx, {
-        type: 'bar',
-        data: levelData,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
 }
